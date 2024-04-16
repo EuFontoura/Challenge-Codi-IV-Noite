@@ -1,0 +1,17 @@
+@import url(calendar.css);
+@import url(buttons.css);
+
+.main {
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--main-bg-color);
+    gap: 1rem;
+    border: 1px solid yellow;
+    overflow: scroll;
+}
+
+.main::-webkit-scrollbar {
+    display: none;
+}
