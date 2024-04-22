@@ -13,6 +13,8 @@
   <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -72,8 +74,14 @@
         </ul>
       </div>
     </div>
+    <!-- Fim Siderbar -->
+
+
+
+
+    <!-- Inicio Main -->
     <div class="main">
-      <div class="selecionar-mes" style="border: 1px solid green;">
+      <div class="selecionar-mes">
         <div class="mes-seletor">
           <button class="anterior" onclick="mesAnterior()">&#8249;</button>
           <div class="mes-atual"></div>
@@ -81,16 +89,143 @@
         </div>
       </div>
       <div class="conteudo-mes">
-        <div class="grafico-mensal"></div>
-        <div class="resumo-mensal"></div>
+        <div class="grafico-mensal">
+          <div class="grafico-gasto">
+            <canvas id="chartCategoriasGasto"></canvas>
+          </div>
+        </div>
+        <div class="resumo-mensal">
+        </div>
       </div>
-      <div class="botoes" style="border: 1px solid green;">
+      <div class="botoes">
         <div class="button-seletor">
           <button class="add-receita"><i class="fa-solid fa-plus"></i></button>
-          <button class="add-gasto"><i class="fa-solid fa-plus"></i></button>
+          <button class="add-despesa"><i class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div>
+    <!-- Fim Main -->
+
+
+
+
+    <!-- Modal Adicionar Despesa -->
+    <div class="modal fade" id="modalAdicionarDespesa" tabindex="-1" aria-labelledby="modalAdicionarDespesaLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAdicionarDespesaLabel">
+              Adicionar Despesa
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="adicionarFormDespesa" class="row g-3 needs-validation">
+              <div class="col-12 form-group">
+                <label for="categoriaAdicionarDespesa">Categoria:</label>
+                <select class="form-control background-input" id="categoriaAdicionarDespesa" required>
+                  <option value="" disabled selected>Selecione uma categoria</option>
+                </select>
+                <div class="valid-feedback">Categoria selecionada!</div>
+              </div>
+              <div class="col-12">
+                <label for="nomeAdicionarDespesa" class="form-label">Nome da Despesa:</label>
+                <input type="text" class="form-control background-input" id="nomeAdicionarDespesa" required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="valorAdicionarDespesa" class="form-label">Valor (R$):</label>
+                <input type="text" class="form-control background-input" id="valorAdicionarDespesa"
+                  placeholder="R$ 00,00" maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="descricaoAdicionarDespesa" class="form-label">Descrição:</label>
+                <textarea type="text" class="form-control background-input" id="descricaoAdicionarDespesa"
+                  maxlength="60"></textarea>
+              </div>
+              <div class="col-12 form-group">
+                <label for="dataAdicionarDespesa">Data:</label>
+                <div class="select-calendar calendar-icon">
+                  <input type="text" class="background-input" id="dataAdicionarDespesa" name="dataAdicionarDespesa">
+                  <i class="fa fa-calendar "></i>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAdicionarDespesa" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim Modal Adicionar Despesa -->
+
+
+
+
+    <!-- Modal Adicionar Receita -->
+    <div class="modal fade" id="modalAdicionarReceita" tabindex="-1" aria-labelledby="modalAdicionarReceitaLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAdicionarReceitaLabel">
+              Adicionar Receita
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="adicionarFormReceita" class="row g-3 needs-validation">
+              <div class="col-12">
+                <label for="nomeAdicionarReceita" class="form-label">Nome da Receita:</label>
+                <input type="text" class="form-control background-input" id="nomeAdicionarReceita" maxlength="12"
+                  required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="valorAdicionarReceita" class="form-label">Valor (R$):</label>
+                <input type="text" class="form-control background-input" id="valorAdicionarReceita"
+                  placeholder="R$ 00,00" maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="descricaoAdicionarReceita" class="form-label">Descrição:</label>
+                <textarea type="text" class="form-control background-input" id="descricaoAdicionarReceita"
+                  maxlength="60"></textarea>
+              </div>
+              <div class="col-12 form-group">
+                <label for="dataAdicionarReceita">Data:</label>
+                <div class="select-calendar calendar-icon">
+                  <input type="text" class="background-input" id="dataAdicionarReceita" name="dataAdicionarReceita">
+                  <i class="fa fa-calendar "></i>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAdicionarReceita" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Fim Modal Adicionar Receita -->
+
+
+
 
     <!-- Modal Categoria Gasto -->
     <div class="modal fade" id="modalCategoriaGasto" tabindex="-1" aria-labelledby="modalCategoriaGastoLabel"
@@ -162,7 +297,10 @@
         </div>
       </div>
     </div>
-    <!-- Fim Modal Categoria -->
+    <!-- Fim Modal Categoria Gasto -->
+
+
+
 
     <!-- Modal Categoria Receita -->
     <div class="modal fade" id="modalCategoriaReceita" tabindex="-1" aria-labelledby="modalCategoriaReceitaLabel"
@@ -234,7 +372,10 @@
         </div>
       </div>
     </div>
-    <!-- Fim Modal Categoria -->
+    <!-- Fim Modal Categoria Receita -->
+
+
+
 
     <!-- Modal Categoria Planejamento -->
     <div class="modal fade" id="modalCategoriaPlanejamento" tabindex="-1"
@@ -296,7 +437,10 @@
           </div>
         </div>
       </div>
-      <!-- Fim Modal Categoria -->
+      <!-- Fim Modal Categoria Planejamento -->
+
+
+
 
       <script src="https://code.jquery.com/jquery-3.7.1.js"
         integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -311,6 +455,7 @@
       <script src="assets/js/planejamento.js"></script>
       <script src="assets/js/sidebar.js"></script>
       <script src="assets/js/calendar.js"></script>
+      <script src="assets/js/botoes.js"></script>
 </body>
 
 </html>

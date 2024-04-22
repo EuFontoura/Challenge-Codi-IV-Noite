@@ -94,3 +94,30 @@
   display: block;
   width: 100%;
 }
+
+.calendar-icon i {
+  font-size: 16px;
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.select-calendar {
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.select-calendar input {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  display: block;
+  width: 100%;
+}

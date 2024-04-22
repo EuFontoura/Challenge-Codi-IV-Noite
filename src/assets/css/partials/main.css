@@ -1,5 +1,7 @@
 @import url(calendar.css);
 @import url(buttons.css);
+@import url(charts.css);
+@import url(resume.css);
 
 .main {
     flex: 6;
@@ -7,11 +9,23 @@
     flex-direction: column;
     height: 100vh;
     background: var(--main-bg-color);
+    justify-content: space-between;
     gap: 1rem;
-    border: 1px solid yellow;
     overflow: scroll;
 }
 
 .main::-webkit-scrollbar {
     display: none;
+}
+
+.conteudo-mes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    overflow-y: auto;
+    height: 700px;
+    gap: .5rem;
 }

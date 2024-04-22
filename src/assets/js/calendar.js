@@ -1,4 +1,3 @@
-// Lista de nomes dos meses
 const meses = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril',
     'Maio', 'Junho', 'Julho', 'Agosto',
@@ -27,3 +26,14 @@ function mesAnterior() {
 
 // Inicializar o mês atual
 atualizarMes();
+
+$("#dataAdicionarDespesa").flatpickr({
+    enableTime: true,
+    dateFormat: "d/m/Y ",
+    enableTime: false,
+});
+$("#dataAdicionarReceita").flatpickr({
+    enableTime: true,
+    dateFormat: "d/m/Y ",
+    enableTime: false,
+});
