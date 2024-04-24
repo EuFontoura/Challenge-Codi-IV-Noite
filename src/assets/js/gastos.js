@@ -143,8 +143,6 @@ $(document).ready(function () {
       created_at: new Date(),
     });
 
-    atualizarGraficoCategorias();
-
     Toastify({
       text: "Categoria adicionada com sucesso!",
       duration: 3000,
@@ -276,6 +274,8 @@ $(document).ready(function () {
       onClick: function () { }
     }).showToast();
 
+    console.log(categoriasGasto)
+
     $("#modalAdicionarDespesa").modal("hide");
 
     isProcessingForm = false;
@@ -283,7 +283,7 @@ $(document).ready(function () {
 });
 
 // Atualizar gráfico de gastos
-function atualizarGraficoCategorias() {
+function atualizarGraficoCategorias(gastos) {
   const ctx = document.getElementById('chartCategoriasGasto');
   if (!ctx) return;
 
@@ -293,11 +293,11 @@ function atualizarGraficoCategorias() {
   }
 
   function calcularPercentualGastos() {
-    const totalGastos = categoriasGasto.reduce((acc, categoria) => {
+    const totalGastos = gastos.reduce((acc, categoria) => {
       return acc + categoria.gastos.reduce((accGasto, gasto) => accGasto + gasto.valor, 0);
     }, 0);
 
-    const percentuais = categoriasGasto.map((categoria) => {
+    const percentuais = gastos.map((categoria) => {
       const categoriaTotal = categoria.gastos.reduce((acc, gasto) => acc + gasto.valor, 0);
       return (categoriaTotal / totalGastos) * 100;
     });
@@ -306,7 +306,7 @@ function atualizarGraficoCategorias() {
   }
 
   const percentuaisGastos = calcularPercentualGastos();
-  const labels = categoriasGasto.map((categoria) => categoria.nome);
+  const labels = gastos.map((categoria) => categoria.nome);
 
   new Chart(ctx, {
     type: 'doughnut',

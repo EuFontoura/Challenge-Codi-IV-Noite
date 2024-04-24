@@ -4,12 +4,30 @@ const meses = [
     'Setembro', 'Outubro', 'Novembro', 'Dezembro'
 ];
 
-let mesIndex = new Date().getMonth(); // Índice do mês atual
+let mesIndex = new Date().getMonth();
 
 // Função para atualizar o mês exibido
 function atualizarMes() {
     const mesAtualElement = document.querySelector('.mes-atual');
     mesAtualElement.textContent = meses[mesIndex];
+
+    const categoriasComGastosJulho = categoriasGasto.filter(categoria =>
+        categoria.gastos.some(gasto => {
+            const partesData = gasto.data.split('/');
+            const mesGasto = parseInt(partesData[1], 10);
+            return mesGasto === mesIndex + 1;
+        })
+    );
+
+    const categoriasAtualizadas = categoriasComGastosJulho.map(categoria => ({
+        ...categoria,
+        gastos: categoria.gastos.filter(gasto => {
+            const partesData = gasto.data.split('/');
+            const mesGasto = parseInt(partesData[1], 10);
+            return mesGasto === mesIndex + 1;
+        })
+    }));
+    atualizarGraficoCategorias(categoriasAtualizadas)
 }
 
 // Função para avançar para o próximo mês
