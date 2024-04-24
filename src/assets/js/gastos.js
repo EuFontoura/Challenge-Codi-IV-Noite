@@ -130,7 +130,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () { }
+        onClick: function () {},
       }).showToast();
       isProcessingForm = false;
       return;
@@ -154,7 +154,7 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () { }
+      onClick: function () {},
     }).showToast();
 
     preencherSubMenuGastos();
@@ -181,7 +181,7 @@ $(document).ready(function () {
     button.html(defaultText);
   });
 
-  $("#btnAdicionarCategoriaGasto").on('click', function (event) {
+  $("#btnAdicionarCategoriaGasto").on("click", function (event) {
     event.preventDefault();
     if (!isProcessingForm) {
       $("#categoriaFormGasto").submit();
@@ -192,6 +192,7 @@ $(document).ready(function () {
 });
 
 // Adicionar despesa
+
 $(document).ready(function () {
   var isProcessingForm = false;
 
@@ -204,13 +205,20 @@ $(document).ready(function () {
 
     isProcessingForm = true;
 
-    var nomeCategoria = $("#categoriaAdicionarDespesa option:selected").val().trim();
+    var nomeCategoria = $("#categoriaAdicionarDespesa option:selected")
+      .val()
+      .trim();
     var nomeGasto = $("#nomeAdicionarDespesa").val().trim();
     var valorGasto = $("#valorAdicionarDespesa").val().trim();
     var descricaoGasto = $("#descricaoAdicionarDespesa").val().trim();
     var dataGasto = $("#dataAdicionarDespesa").val().trim();
 
-    if (nomeCategoria === "" || nomeGasto === "" || valorGasto === "" || dataGasto === "") {
+    if (
+      nomeCategoria === "" ||
+      nomeGasto === "" ||
+      valorGasto === "" ||
+      dataGasto === ""
+    ) {
       Toastify({
         text: "Por favor, preencha todos os campos!",
         duration: 3000,
@@ -222,7 +230,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () { }
+        onClick: function () {},
       }).showToast();
       isProcessingForm = false;
       return;
@@ -244,7 +252,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () { }
+        onClick: function () {},
       }).showToast();
       isProcessingForm = false;
       return;
@@ -252,13 +260,13 @@ $(document).ready(function () {
 
     categoriaExistente.gastos.push({
       nome: nomeGasto,
-      valor: parseFloat(valorGasto.replace(',', '.')),
+      valor: parseFloat(valorGasto.replace(",", ".")),
       descricao: descricaoGasto,
       data: dataGasto,
       created_at: new Date(),
     });
 
-    atualizarGraficoCategorias();
+    atualizarGraficoCategorias(categoriasGasto);
 
     Toastify({
       text: "Gasto adicionado com sucesso!",
@@ -271,12 +279,14 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () { }
+      onClick: function () {},
     }).showToast();
 
-    console.log(categoriasGasto)
+    console.log(categoriasGasto);
 
     $("#modalAdicionarDespesa").modal("hide");
+
+    atualizarMes();
 
     isProcessingForm = false;
   });
@@ -284,7 +294,7 @@ $(document).ready(function () {
 
 // Atualizar gráfico de gastos
 function atualizarGraficoCategorias(gastos) {
-  const ctx = document.getElementById('chartCategoriasGasto');
+  const ctx = document.getElementById("chartCategoriasGasto");
   if (!ctx) return;
 
   const existingChart = Chart.getChart(ctx);
@@ -293,12 +303,18 @@ function atualizarGraficoCategorias(gastos) {
   }
 
   function calcularPercentualGastos() {
-    const totalGastos = gastos.reduce((acc, categoria) => {
-      return acc + categoria.gastos.reduce((accGasto, gasto) => accGasto + gasto.valor, 0);
+    const totalGastos = gastos?.reduce((acc, categoria) => {
+      return (
+        acc +
+        categoria.gastos.reduce((accGasto, gasto) => accGasto + gasto.valor, 0)
+      );
     }, 0);
 
-    const percentuais = gastos.map((categoria) => {
-      const categoriaTotal = categoria.gastos.reduce((acc, gasto) => acc + gasto.valor, 0);
+    const percentuais = gastos?.map((categoria) => {
+      const categoriaTotal = categoria.gastos.reduce(
+        (acc, gasto) => acc + gasto.valor,
+        0
+      );
       return (categoriaTotal / totalGastos) * 100;
     });
 
@@ -306,24 +322,26 @@ function atualizarGraficoCategorias(gastos) {
   }
 
   const percentuaisGastos = calcularPercentualGastos();
-  const labels = gastos.map((categoria) => categoria.nome);
+  const labels = gastos?.map((categoria) => categoria.nome);
 
   new Chart(ctx, {
-    type: 'doughnut',
+    type: "doughnut",
     data: {
       labels: labels,
-      datasets: [{
-        label: '% de Gastos',
-        data: percentuaisGastos,
-        borderWidth: 1
-      }]
+      datasets: [
+        {
+          label: "% de Gastos",
+          data: percentuaisGastos,
+          borderWidth: 1,
+        },
+      ],
     },
     options: {
       scales: {
         y: {
-          beginAtZero: true
-        }
-      }
-    }
+          beginAtZero: true,
+        },
+      },
+    },
   });
 }
