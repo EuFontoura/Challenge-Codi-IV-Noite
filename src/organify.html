@@ -92,6 +92,7 @@
         <div class="grafico-mensal">
           <div class="grafico-gasto">
             <canvas id="chartCategoriasGasto"></canvas>
+            <canvas id="chartCategoriasReceita"></canvas>
           </div>
         </div>
         <div class="resumo-mensal">
@@ -184,6 +185,13 @@
           </div>
           <div class="modal-body">
             <form id="adicionarFormReceita" class="row g-3 needs-validation">
+              <div class="col-12 form-group">
+                <label for="categoriaAdicionarReceita">Categoria:</label>
+                <select class="form-control background-input" id="categoriaAdicionarReceita" required>
+                  <option value="" disabled selected>Selecione uma categoria</option>
+                </select>
+                <div class="valid-feedback">Categoria selecionada!</div>
+              </div>
               <div class="col-12">
                 <label for="nomeAdicionarReceita" class="form-label">Nome da Receita:</label>
                 <input type="text" class="form-control background-input" id="nomeAdicionarReceita" maxlength="12"
