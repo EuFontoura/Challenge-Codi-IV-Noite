@@ -15,12 +15,12 @@ const meses = [
 
 let mesIndex = new Date().getMonth();
 
-// Função para atualizar o mês exibido
-function atualizarMes() {
+// Função para atualizar os gastos mensais
+function atualizarGastosMes() {
   const mesAtualElement = document.querySelector(".mes-atual");
   mesAtualElement.textContent = meses[mesIndex];
 
-  const categoriasComGastosJulho = categoriasGasto.filter((categoria) =>
+  const categoriasComGasto = categoriasGasto.filter((categoria) =>
     categoria.gastos.some((gasto) => {
       const partesData = gasto.data.split("/");
       const mesGasto = parseInt(partesData[1], 10);
@@ -28,7 +28,7 @@ function atualizarMes() {
     })
   );
 
-  const categoriasAtualizadas = categoriasComGastosJulho.map((categoria) => ({
+  const categoriasAtualizadas = categoriasComGasto.map((categoria) => ({
     ...categoria,
     gastos: categoria.gastos.filter((gasto) => {
       const partesData = gasto.data.split("/");
@@ -36,23 +36,51 @@ function atualizarMes() {
       return mesGasto === mesIndex + 1;
     }),
   }));
-  atualizarGraficoCategorias(categoriasAtualizadas);
+  atualizarGraficoGastos(categoriasAtualizadas);
+}
+
+// Função para atualizar as receitas mensais
+function atualizarReceitasMes() {
+  const mesAtualElement = document.querySelector(".mes-atual");
+  mesAtualElement.textContent = meses[mesIndex];
+
+  const categoriasComReceita = categoriasReceita.filter((categoria) =>
+    categoria.receitas.some((receita) => {
+      const partesData = receita.data.split("/");
+      const mesGasto = parseInt(partesData[1], 10);
+      return mesGasto === mesIndex + 1;
+    })
+  );
+
+  const categoriasAtualizadas = categoriasComReceita.map((categoria) => ({
+    ...categoria,
+    gastos: categoria.receitas.filter((receita) => {
+      const partesData = receita.data.split("/");
+      const mesGasto = parseInt(partesData[1], 10);
+      return mesGasto === mesIndex + 1;
+    }),
+  }));
+  atualizarGraficoReceitas(categoriasAtualizadas);
 }
 
 // Função para avançar para o próximo mês
 function mesProximo() {
   mesIndex = (mesIndex + 1) % 12;
-  atualizarMes();
+  atualizarGastosMes();
+  atualizarReceitasMes();
 }
 
 // Função para retroceder para o mês anterior
 function mesAnterior() {
   mesIndex = (mesIndex - 1 + 12) % 12;
-  atualizarMes();
+  atualizarGastosMes();
+  atualizarReceitasMes();
 }
 
 // Inicializar o mês atual
-atualizarMes();
+atualizarGastosMes();
+atualizarReceitasMes();
+
 
 $("#dataAdicionarDespesa").flatpickr({
   enableTime: true,

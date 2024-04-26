@@ -79,7 +79,7 @@ $(document).ready(function () {
 });
 
 // Preencher select com options de categoria
-function gerarOpcoesCategorias() {
+function gerarOpcoesSelectAddGastoModal() {
   var selectCategoria = document.getElementById("categoriaAdicionarDespesa");
   selectCategoria.innerHTML = "";
 
@@ -90,7 +90,7 @@ function gerarOpcoesCategorias() {
     selectCategoria.appendChild(option);
   });
 }
-gerarOpcoesCategorias();
+gerarOpcoesSelectAddGastoModal();
 
 // Adicionar Categoria
 $(document).ready(function () {
@@ -130,7 +130,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -154,11 +154,11 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () {},
+      onClick: function () { },
     }).showToast();
 
     preencherSubMenuGastos();
-    gerarOpcoesCategorias();
+    gerarOpcoesSelectAddGastoModal();
 
     $("#modalCategoriaGasto").modal("hide");
 
@@ -230,7 +230,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -252,7 +252,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -266,7 +266,7 @@ $(document).ready(function () {
       created_at: new Date(),
     });
 
-    atualizarGraficoCategorias(categoriasGasto);
+    atualizarGraficoGastos(categoriasGasto);
 
     Toastify({
       text: "Gasto adicionado com sucesso!",
@@ -279,21 +279,21 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () {},
+      onClick: function () { },
     }).showToast();
 
     console.log(categoriasGasto);
 
     $("#modalAdicionarDespesa").modal("hide");
 
-    atualizarMes();
+    atualizarGastosMes();
 
     isProcessingForm = false;
   });
 });
 
 // Atualizar gráfico de gastos
-function atualizarGraficoCategorias(gastos) {
+function atualizarGraficoGastos(gastos) {
   const ctx = document.getElementById("chartCategoriasGasto");
   if (!ctx) return;
 

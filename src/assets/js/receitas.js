@@ -77,7 +77,7 @@ $("#nomeCategoriaReceita").on("input", function () {
 });
 
 // Preencher select com options de categoria
-function gerarOpcoesCategorias() {
+function gerarOpcoesSelectAddReceitaModal() {
   var selectCategoria = document.getElementById("categoriaAdicionarReceita");
   selectCategoria.innerHTML = "";
 
@@ -88,7 +88,7 @@ function gerarOpcoesCategorias() {
     selectCategoria.appendChild(option);
   });
 }
-gerarOpcoesCategorias();
+gerarOpcoesSelectAddReceitaModal();
 
 // Adicionar Categoria
 $(document).ready(function () {
@@ -128,7 +128,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -152,11 +152,11 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () {},
+      onClick: function () { },
     }).showToast();
 
     preencherSubMenuReceitas();
-    gerarOpcoesCategorias();
+    gerarOpcoesSelectAddReceitaModal();
 
     $("#modalCategoriaReceita").modal("hide");
 
@@ -228,7 +228,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -250,7 +250,7 @@ $(document).ready(function () {
         style: {
           background: "#871919",
         },
-        onClick: function () {},
+        onClick: function () { },
       }).showToast();
       isProcessingForm = false;
       return;
@@ -264,7 +264,7 @@ $(document).ready(function () {
       created_at: new Date(),
     });
 
-    atualizarGraficoCategorias(categoriasReceita);
+    atualizarGraficoReceitas(categoriasReceita);
 
     Toastify({
       text: "Receita adicionado com sucesso!",
@@ -277,21 +277,21 @@ $(document).ready(function () {
       style: {
         background: "#198754",
       },
-      onClick: function () {},
+      onClick: function () { },
     }).showToast();
 
     console.log(categoriasReceita);
 
     $("#modalAdicionarReceita").modal("hide");
 
-    atualizarMes();
+    atualizarReceitasMes();
 
     isProcessingForm = false;
   });
 });
 
 // Atualizar gráfico de receitas
-function atualizarGraficoCategorias(receitas) {
+function atualizarGraficoReceitas(receitas) {
   const ctx = document.getElementById("chartCategoriasReceita");
   if (!ctx) return;
 
