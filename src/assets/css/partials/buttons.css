@@ -1,0 +1,39 @@
+.buttons {
+  height: 120px;
+}
+
+.button-seletor {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 20px;
+}
+
+.add-receita,
+.add-despesa {
+  border: none;
+  cursor: pointer;
+  font-size: 40px;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-receita:hover,
+.add-despesa:hover {
+  opacity: 0.5;
+  transition: ease-in 0.3s;
+}
+
+.add-receita {
+  background-color: green;
+}
+
+.add-despesa {
+  background-color: red;
+}

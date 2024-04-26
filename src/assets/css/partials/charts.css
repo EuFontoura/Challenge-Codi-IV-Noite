@@ -1,0 +1,17 @@
+.grafico-mensal {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.graficos {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    overflow-y: auto;
+}
