@@ -1,3 +1,4 @@
+
 const meses = [
   "Janeiro",
   "Fevereiro",
@@ -13,46 +14,73 @@ const meses = [
   "Dezembro",
 ];
 
-let mesIndex = new Date().getMonth();
+var mesIndex = new Date().getMonth();
+const mesAtualElement = document.querySelector(".mes-atual");
+mesAtualElement.textContent = meses[mesIndex];
 
-// Função para atualizar o mês exibido
-function atualizarMes() {
-  const mesAtualElement = document.querySelector(".mes-atual");
-  mesAtualElement.textContent = meses[mesIndex];
+function verificarLancamentosMes() {
+  const conteudoMes = document.querySelector(".conteudo-mes");
 
-  const categoriasComGastosJulho = categoriasGasto.filter((categoria) =>
-    categoria.gastos.some((gasto) => {
-      const partesData = gasto.data.split("/");
-      const mesGasto = parseInt(partesData[1], 10);
-      return mesGasto === mesIndex + 1;
-    })
-  );
+  if (conteudoMes) {
+    const temGastos = categorias.categoriasGasto.some((categoria) =>
+      categoria.gastos.some((gasto) => {
+        const partesData = gasto.data.split("/");
+        const mesGasto = parseInt(partesData[1], 10);
+        return mesGasto === mesIndex + 1;
+      })
+    );
 
-  const categoriasAtualizadas = categoriasComGastosJulho.map((categoria) => ({
-    ...categoria,
-    gastos: categoria.gastos.filter((gasto) => {
-      const partesData = gasto.data.split("/");
-      const mesGasto = parseInt(partesData[1], 10);
-      return mesGasto === mesIndex + 1;
-    }),
-  }));
-  atualizarGraficoCategorias(categoriasAtualizadas);
+    const temReceitas = categorias.categoriasReceita.some((categoria) =>
+      categoria.receitas.some((receita) => {
+        const partesData = receita.data.split("/");
+        const mesReceita = parseInt(partesData[1], 10);
+        return mesReceita === mesIndex + 1;
+      })
+    );
+
+    if (!temGastos && !temReceitas) {
+      conteudoMes.innerHTML = "<p>Não há lançamentos para o mês atual.</p>";
+    }
+    if (temGastos || temReceitas) {
+      conteudoMes.innerHTML = `<div class="grafico-mensal">
+          <div class="graficos">
+            <div>
+              <h1>Receitas</h1>
+              <canvas id="chartCategoriasReceita"></canvas>
+            </div>
+            <div>
+              <h1>Gastos</h1>
+              <canvas id="chartCategoriasGasto"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="resumo-mensal">
+        </div>`;
+    }
+  }
 }
+
+// Chamada da função após atualizar os gastos e as receitas
+verificarLancamentosMes();
+
 
 // Função para avançar para o próximo mês
 function mesProximo() {
   mesIndex = (mesIndex + 1) % 12;
-  atualizarMes();
+  const mesAtualElement = document.querySelector(".mes-atual");
+  mesAtualElement.textContent = meses[mesIndex];
+  verificarLancamentosMes();
+  atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 }
 
 // Função para retroceder para o mês anterior
 function mesAnterior() {
   mesIndex = (mesIndex - 1 + 12) % 12;
-  atualizarMes();
+  const mesAtualElement = document.querySelector(".mes-atual");
+  mesAtualElement.textContent = meses[mesIndex];
+  verificarLancamentosMes();
+  atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 }
-
-// Inicializar o mês atual
-atualizarMes();
 
 $("#dataAdicionarDespesa").flatpickr({
   enableTime: true,
