@@ -1,30 +1,10 @@
-var categoriasGasto = [
-  {
-    nome: "Alimentação",
-    icone: "fas fa-utensils",
-    gastos: [],
-    created_at: new Date(),
-  },
-  {
-    nome: "Transporte",
-    icone: "fas fa-car",
-    gastos: [],
-    created_at: new Date(),
-  },
-  {
-    nome: "Moradia",
-    icone: "fas fa-home",
-    gastos: [],
-    created_at: new Date(),
-  },
-];
 
 // Preenche o submenu da sidebar com as categorias
 function preencherSubMenuGastos() {
   var submenuGastos = document.getElementById("submenuGastos");
   submenuGastos.innerHTML = "";
 
-  categoriasGasto.forEach(function (categoria) {
+  categorias.categoriasGasto.forEach(function (categoria) {
     var li = document.createElement("li");
 
     li.classList.add("menu-item");
@@ -83,7 +63,7 @@ function gerarOpcoesSelectAddGastoModal() {
   var selectCategoria = document.getElementById("categoriaAdicionarDespesa");
   selectCategoria.innerHTML = "";
 
-  categoriasGasto.forEach(function (categoria) {
+  categorias.categoriasGasto.forEach(function (categoria) {
     var option = document.createElement("option");
     option.value = categoria.nome;
     option.text = categoria.nome;
@@ -114,7 +94,7 @@ $(document).ready(function () {
       return;
     }
 
-    var categoriaExistente = categoriasGasto.find(function (categoria) {
+    var categoriaExistente = categorias.categoriasGasto.find(function (categoria) {
       return categoria.nome === nomeCategoria;
     });
 
@@ -136,7 +116,7 @@ $(document).ready(function () {
       return;
     }
 
-    categoriasGasto.push({
+    categorias.categoriasGasto.push({
       nome: nomeCategoria,
       icone: icon,
       gastos: [],
@@ -236,7 +216,7 @@ $(document).ready(function () {
       return;
     }
 
-    var categoriaExistente = categoriasGasto.find(function (categoria) {
+    var categoriaExistente = categorias.categoriasGasto.find(function (categoria) {
       return categoria.nome === nomeCategoria;
     });
 
@@ -266,8 +246,6 @@ $(document).ready(function () {
       created_at: new Date(),
     });
 
-    atualizarGraficoGastos(categoriasGasto);
-
     Toastify({
       text: "Gasto adicionado com sucesso!",
       duration: 3000,
@@ -282,66 +260,9 @@ $(document).ready(function () {
       onClick: function () { },
     }).showToast();
 
-    console.log(categoriasGasto);
-
     $("#modalAdicionarDespesa").modal("hide");
-
-    atualizarGastosMes();
-
+    verificarLancamentosMes();
+    atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
     isProcessingForm = false;
   });
 });
-
-// Atualizar gráfico de gastos
-function atualizarGraficoGastos(gastos) {
-  const ctx = document.getElementById("chartCategoriasGasto");
-  if (!ctx) return;
-
-  const existingChart = Chart.getChart(ctx);
-  if (existingChart) {
-    existingChart.destroy();
-  }
-
-  function calcularPercentualGastos() {
-    const totalGastos = gastos?.reduce((acc, categoria) => {
-      return (
-        acc +
-        categoria.gastos.reduce((accGasto, gasto) => accGasto + gasto.valor, 0)
-      );
-    }, 0);
-
-    const percentuais = gastos?.map((categoria) => {
-      const categoriaTotal = categoria.gastos.reduce(
-        (acc, gasto) => acc + gasto.valor,
-        0
-      );
-      return (categoriaTotal / totalGastos) * 100;
-    });
-
-    return percentuais;
-  }
-
-  const percentuaisGastos = calcularPercentualGastos();
-  const labels = gastos?.map((categoria) => categoria.nome);
-
-  new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "% de Gastos",
-          data: percentuaisGastos,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
-}

@@ -1,24 +1,10 @@
-var categoriasReceita = [
-  {
-    nome: "Salário",
-    icone: "fas fa-wallet",
-    receitas: [],
-    created_at: new Date(),
-  },
-  {
-    nome: "Vendas",
-    icone: "fas fa-handshake",
-    receitas: [],
-    created_at: new Date(),
-  },
-];
 
 // Preenche o submenu da sidebar com as categorias
 function preencherSubMenuReceitas() {
   var submenuReceitas = document.getElementById("submenuReceitas");
   submenuReceitas.innerHTML = "";
 
-  categoriasReceita.forEach(function (categoria) {
+  categorias.categoriasReceita.forEach(function (categoria) {
     var li = document.createElement("li");
 
     li.classList.add("menu-item");
@@ -81,7 +67,7 @@ function gerarOpcoesSelectAddReceitaModal() {
   var selectCategoria = document.getElementById("categoriaAdicionarReceita");
   selectCategoria.innerHTML = "";
 
-  categoriasReceita.forEach(function (categoria) {
+  categorias.categoriasReceita.forEach(function (categoria) {
     var option = document.createElement("option");
     option.value = categoria.nome;
     option.text = categoria.nome;
@@ -112,7 +98,7 @@ $(document).ready(function () {
       return;
     }
 
-    var categoriaExistente = categoriasReceita.find(function (categoria) {
+    var categoriaExistente = categorias.categoriasReceita.find(function (categoria) {
       return categoria.nome === nomeCategoria;
     });
 
@@ -134,7 +120,7 @@ $(document).ready(function () {
       return;
     }
 
-    categoriasReceita.push({
+    categorias.categoriasReceita.push({
       nome: nomeCategoria,
       icone: icon,
       receitas: [],
@@ -234,7 +220,7 @@ $(document).ready(function () {
       return;
     }
 
-    var categoriaExistente = categoriasReceita.find(function (categoria) {
+    var categoriaExistente = categorias.categoriasReceita.find(function (categoria) {
       return categoria.nome === nomeCategoria;
     });
 
@@ -264,8 +250,6 @@ $(document).ready(function () {
       created_at: new Date(),
     });
 
-    atualizarGraficoReceitas(categoriasReceita);
-
     Toastify({
       text: "Receita adicionado com sucesso!",
       duration: 3000,
@@ -280,69 +264,9 @@ $(document).ready(function () {
       onClick: function () { },
     }).showToast();
 
-    console.log(categoriasReceita);
-
     $("#modalAdicionarReceita").modal("hide");
-
-    atualizarReceitasMes();
-
+    verificarLancamentosMes();
+    atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
     isProcessingForm = false;
   });
 });
-
-// Atualizar gráfico de receitas
-function atualizarGraficoReceitas(receitas) {
-  const ctx = document.getElementById("chartCategoriasReceita");
-  if (!ctx) return;
-
-  const existingChart = Chart.getChart(ctx);
-  if (existingChart) {
-    existingChart.destroy();
-  }
-
-  function calcularPercentualReceitas() {
-    const totalReceitas = receitas?.reduce((acc, categoria) => {
-      return (
-        acc +
-        categoria.receitas.reduce(
-          (accReceita, Receita) => accReceita + Receita.valor,
-          0
-        )
-      );
-    }, 0);
-
-    const percentuais = receitas?.map((categoria) => {
-      const categoriaTotal = categoria.receitas.reduce(
-        (acc, Receita) => acc + Receita.valor,
-        0
-      );
-      return (categoriaTotal / totalReceitas) * 100;
-    });
-
-    return percentuais;
-  }
-
-  const percentuaisReceitas = calcularPercentualReceitas();
-  const labels = receitas?.map((categoria) => categoria.nome);
-
-  new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: "% de Receita",
-          data: percentuaisReceitas,
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
-}
