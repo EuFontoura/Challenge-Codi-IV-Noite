@@ -29,3 +29,15 @@
     height: 700px;
     gap: .5rem;
 }
+
+.msg-sem-lancamento {
+    display: none;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    overflow-y: auto;
+    height: 700px;
+    gap: .5rem;
+}

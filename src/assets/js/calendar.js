@@ -20,6 +20,7 @@ mesAtualElement.textContent = meses[mesIndex];
 
 function verificarLancamentosMes() {
   const conteudoMes = document.querySelector(".conteudo-mes");
+  const msgSemLancamento = document.querySelector(".msg-sem-lancamento");
 
   if (conteudoMes) {
     const temGastos = categorias.categoriasGasto.some((categoria) =>
@@ -39,23 +40,12 @@ function verificarLancamentosMes() {
     );
 
     if (!temGastos && !temReceitas) {
-      conteudoMes.innerHTML = "<p>Não há lançamentos para o mês atual.</p>";
+      conteudoMes.style.display = "none";
+      msgSemLancamento.style.display = "flex";
     }
     if (temGastos || temReceitas) {
-      conteudoMes.innerHTML = `<div class="grafico-mensal">
-          <div class="graficos">
-            <div>
-              <h1>Receitas</h1>
-              <canvas id="chartCategoriasReceita"></canvas>
-            </div>
-            <div>
-              <h1>Gastos</h1>
-              <canvas id="chartCategoriasGasto"></canvas>
-            </div>
-          </div>
-        </div>
-        <div class="resumo-mensal">
-        </div>`;
+      conteudoMes.style.display = "flex";
+      msgSemLancamento.style.display = "none";
     }
   }
 }
