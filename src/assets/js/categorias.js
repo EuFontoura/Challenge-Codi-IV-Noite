@@ -35,3 +35,20 @@ var categorias = {
         },
     ]
 };
+
+function salvarCategorias() {
+    localStorage.setItem('categorias', JSON.stringify(categorias));
+}
+
+function recuperarCategorias() {
+    var categorias = localStorage.getItem('categorias');
+    if (categorias) {
+        categorias = JSON.parse(categorias);
+    }
+}
+
+  
+document.addEventListener('DOMContentLoaded', recuperarCategorias);
+  
+window.addEventListener('beforeunload', salvarCategorias);
+  

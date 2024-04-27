@@ -6,23 +6,18 @@ function preencherSubMenuGastos() {
 
   categorias.categoriasGasto.forEach(function (categoria) {
     var li = document.createElement("li");
-
     li.classList.add("menu-item");
 
-    var a = document.createElement("a");
-
-    a.setAttribute("href", "#");
+    var a = document.createElement("a");    
+    a.setAttribute("data-bs-toggle", "modal");
+    a.setAttribute("data-bs-target", "#modalGerenciarCategoriaGasto");
 
     var icon = document.createElement("i");
-
     icon.className = categoria.icone;
 
     a.appendChild(icon);
-
     a.appendChild(document.createTextNode(" "));
-
     a.appendChild(document.createTextNode(categoria.nome));
-
     li.appendChild(a);
 
     submenuGastos.appendChild(li);
@@ -169,7 +164,112 @@ $(document).ready(function () {
   });
 
   preencherSubMenuGastos();
+
 });
+
+
+// Gerenciar categoria
+
+$(document).ready(function () {
+  var isProcessingForm = false;
+
+  $("#gerenciarCategoriaFormGasto").submit(function (event) {
+    event.preventDefault();
+
+    if (isProcessingForm) {
+      return;
+    }
+
+    isProcessingForm = true;
+
+    var nomeCategoria = $("#nomeCategoriaGasto").val().trim();
+    var icon = $("#iconeCategoriaGasto .btn-secondary").attr("data-icon");
+
+    if (nomeCategoria === "") {
+      $("#nomeCategoriaGasto").addClass("is-invalid");
+      isProcessingForm = false;
+      return;
+    }
+
+    var categoriaExistente = categorias.categoriasGasto.find(function (categoria) {
+      return categoria.nome === nomeCategoria;
+    });
+
+    if (categoriaExistente) {
+      Toastify({
+        text: "Categoria já existe!",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "#871919",
+        },
+        onClick: function () { },
+      }).showToast();
+      isProcessingForm = false;
+      return;
+    }
+
+    categorias.categoriasGasto.push({
+      nome: nomeCategoria,
+      icone: icon,
+      gastos: [],
+      created_at: new Date(),
+    });
+
+    Toastify({
+      text: "Categoria editada com sucesso!",
+      duration: 3000,
+      newWindow: true,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#198754",
+      },
+      onClick: function () { },
+    }).showToast();
+
+    preencherSubMenuGastos();
+    gerarOpcoesSelectAddGastoModal();
+
+    $("#modalGerenciarCategoriaGasto").modal("hide");
+
+    isProcessingForm = false;
+  });
+
+  $(".dropdown-item").click(function () {
+    var icon = $(this).attr("data-icon");
+    var text = $(this).text();
+    var button = $(this).closest(".dropdown").find(".btn-secondary");
+    button.attr("data-icon", icon);
+    button.html('<i class="' + icon + '"></i> ' + text);
+  });
+
+  $("#modalCategoriaGasto").on("hidden.bs.modal", function () {
+    var defaultIcon = "fas fa-layer-group"; // Ícone padrão
+    var button = $("#iconeCategoriaGasto .btn-secondary");
+    var defaultText = '<i class="' + defaultIcon + '"></i>';
+    button.attr("data-icon", defaultIcon);
+    button.html(defaultText);
+  });
+
+  $("#btnGerenciarCategoriaGasto").on("click", function (event) {
+    event.preventDefault();
+    if (!isProcessingForm) {
+      $("#gerenciarCategoriaFormGasto").submit();
+    }
+  });
+
+  preencherSubMenuGastos();
+  verificarLancamentosMes();
+  atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
+});
+
 
 // Adicionar despesa
 
