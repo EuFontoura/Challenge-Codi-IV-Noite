@@ -1,4 +1,3 @@
-
 // Preenche o submenu da sidebar com as categorias
 function preencherSubMenuGastos() {
   var submenuGastos = document.getElementById("submenuGastos");
@@ -218,6 +217,7 @@ $(document).ready(function () {
       icone: icon,
       gastos: [],
       created_at: new Date(),
+      id: categorias.categoriasGasto.length
     });
 
     Toastify({
@@ -264,7 +264,7 @@ $(document).ready(function () {
       $("#gerenciarCategoriaFormGasto").submit();
     }
   });
-
+  
   preencherSubMenuGastos();
   verificarLancamentosMes();
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
