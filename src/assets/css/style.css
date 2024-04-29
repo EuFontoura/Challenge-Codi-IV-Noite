@@ -11,6 +11,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+h1 {
+  text-align: center;
+}
+
 :root {
   --main-bg-color: #1d1d1d;
   --main-text-color: #ffffff;
