@@ -99,8 +99,6 @@ $(document).ready(function () {
     categoriasArray.push(novaCategoria);
 
     exibirToast("Categoria adicionada com sucesso!", "#198754");
-    preencherSubMenuGastos();
-    gerarOpcoesSelectAddGastoModal();
     $("#modalCategoria").modal("hide");
 
     isProcessingForm = false;
@@ -113,6 +111,7 @@ $(document).ready(function () {
     if (!isProcessingForm) $("#categoriaForm").submit();
     preencherSubMenuGastos();
     preencherSubMenuReceitas();
+    gerarOpcoesSelectAddGastoModal();
   });
 });
 
