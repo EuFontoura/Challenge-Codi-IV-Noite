@@ -74,6 +74,8 @@
   text-align: center;
   background-color: var(--second-bg-color);
   padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .dropdown-item {
@@ -104,7 +106,6 @@
 }
 
 .select-calendar {
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
