@@ -1,4 +1,3 @@
-
 const meses = [
   "Janeiro",
   "Fevereiro",
@@ -53,7 +52,6 @@ function verificarLancamentosMes() {
 // Chamada da função após atualizar os gastos e as receitas
 verificarLancamentosMes();
 
-
 // Função para avançar para o próximo mês
 function mesProximo() {
   mesIndex = (mesIndex + 1) % 12;
@@ -81,4 +79,9 @@ $("#dataAdicionarReceita").flatpickr({
   enableTime: true,
   dateFormat: "d/m/Y ",
   enableTime: false,
+});
+
+$(document).ready(function () {
+  verificarLancamentosMes();
+  atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 });
