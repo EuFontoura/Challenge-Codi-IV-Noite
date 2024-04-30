@@ -38,22 +38,38 @@ var categorias = {
       created_at: new Date(),
     },
   ],
+  categoriasPlanejamento: [
+    {
+      id: crypto.randomUUID(),
+      nome: "Comprar Carro",
+      icone: "fa-solid fa-car-side",
+      planejamentos: [],
+      created_at: new Date(),
+    },
+    {
+      id: crypto.randomUUID(),
+      nome: "Poupança",
+      icone: "fas fa-piggy-bank",
+      planejamentos: [],
+      created_at: new Date(),
+    },
+  ],
 };
 
-function salvarCategorias() {
-  localStorage.setItem("categorias", JSON.stringify(categorias));
-}
+// function salvarCategorias() {
+//   localStorage.setItem("categorias", JSON.stringify(categorias));
+// }
 
-function recuperarCategorias() {
-  var categoriasSalvas = localStorage.getItem("categorias");
-  if (categoriasSalvas) {
-    categorias = JSON.parse(categoriasSalvas);
-  }
-}
+// function recuperarCategorias() {
+//   var categoriasSalvas = localStorage.getItem("categorias");
+//   if (categoriasSalvas) {
+//     categorias = JSON.parse(categoriasSalvas);
+//   }
+// }
 
-document.addEventListener("DOMContentLoaded", recuperarCategorias);
+// document.addEventListener("DOMContentLoaded", recuperarCategorias);
 
-window.addEventListener("beforeunload", salvarCategorias);
+// window.addEventListener("beforeunload", salvarCategorias);
 
 /* CRUD */
 
@@ -99,8 +115,6 @@ $(document).ready(function () {
     categoriasArray.push(novaCategoria);
 
     exibirToast("Categoria adicionada com sucesso!", "#198754");
-    preencherSubMenuGastos();
-    gerarOpcoesSelectAddGastoModal();
     $("#modalCategoria").modal("hide");
 
     isProcessingForm = false;
@@ -113,6 +127,8 @@ $(document).ready(function () {
     if (!isProcessingForm) $("#categoriaForm").submit();
     preencherSubMenuGastos();
     preencherSubMenuReceitas();
+    preencherSubMenuPlanejamentos();
+    gerarOpcoesSelectAddGastoModal();
   });
 });
 
@@ -146,4 +162,5 @@ $(document).ready(function () {
 $(document).ready(function () {
   preencherSubMenuGastos();
   preencherSubMenuReceitas();
+  preencherSubMenuPlanejamentos();
 });

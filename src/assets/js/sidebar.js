@@ -43,17 +43,18 @@ function preencherSubMenuReceitas() {
   categorias.categoriasReceita.forEach(function (categoria) {
     var li = document.createElement("li");
     li.classList.add("menu-item");
+
     var a = document.createElement("a");
-    a.setAttribute("href", "#");
+    a.setAttribute("data-bs-toggle", "modal");
+
     var icon = document.createElement("i");
     icon.className = categoria.icone;
+
     a.appendChild(icon);
     a.appendChild(document.createTextNode(" "));
     a.appendChild(document.createTextNode(categoria.nome));
     li.appendChild(a);
-    li.addEventListener("click", function () {
-      exibirReceitas(categoria.receitas);
-    });
+
     submenuReceitas.appendChild(li);
   });
 }
@@ -69,7 +70,6 @@ function preencherSubMenuGastos() {
 
     var a = document.createElement("a");
     a.setAttribute("data-bs-toggle", "modal");
-    a.setAttribute("data-bs-target", "#modalGerenciarCategoriaGasto");
 
     var icon = document.createElement("i");
     icon.className = categoria.icone;
@@ -82,3 +82,29 @@ function preencherSubMenuGastos() {
     submenuGastos.appendChild(li);
   });
 }
+
+// Preenche o submenu da sidebar com as categorias
+function preencherSubMenuPlanejamentos() {
+  var submenuPlanejamentos = document.getElementById("submenuPlanejamentos");
+  submenuPlanejamentos.innerHTML = "";
+
+  categorias.categoriasPlanejamento.forEach(function (categoria) {
+    var li = document.createElement("li");
+    li.classList.add("menu-item");
+
+    var a = document.createElement("a");
+    a.setAttribute("data-bs-toggle", "modal");
+
+    var icon = document.createElement("i");
+    icon.className = categoria.icone;
+
+    a.appendChild(icon);
+    a.appendChild(document.createTextNode(" "));
+    a.appendChild(document.createTextNode(categoria.nome));
+    li.appendChild(a);
+
+    submenuPlanejamentos.appendChild(li);
+  });
+}
+
+
