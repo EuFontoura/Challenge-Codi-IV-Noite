@@ -69,6 +69,7 @@ $(document).ready(function () {
 
     $("#modalAdicionarDespesa").modal("hide");
     verificarLancamentosMes();
+    atualizarTabela();
     atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
     isProcessingForm = false;
   });
