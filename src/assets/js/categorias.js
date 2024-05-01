@@ -56,6 +56,37 @@ var categorias = {
   ],
 };
 
+// Função para atualizar a tabela de acordo com a categoria selecionada
+const atualizarTabela = () => {
+  const filtro = document.getElementById('filtro-categorias').value;
+  const corpoTabela = document.getElementById('corpo-tabela');
+  corpoTabela.innerHTML = ''; // Limpa o conteúdo atual da tabela
+
+  let numeroLinha = 1;
+  categorias.categoriasGasto.forEach((categoria) => {
+    if (filtro === '' || categoria.nome === filtro) {
+      categoria.gastos.forEach((gasto) => {
+        const novaLinha = document.createElement('tr');
+        novaLinha.innerHTML = `
+          <th scope="row">${numeroLinha}</th>
+          <td>${gasto.nome}</td>
+          <td>${gasto.valor}</td>
+        `;
+        corpoTabela.appendChild(novaLinha);
+        numeroLinha++;
+      });
+    }
+  });
+};
+
+// Associando o evento de alteração ao elemento select
+const filtroCategorias = document.getElementById('filtro-categorias');
+filtroCategorias.addEventListener('change', atualizarTabela);
+
+// Chama a função inicialmente para exibir todos os gastos
+atualizarTabela();
+
+
 // function salvarCategorias() {
 //   localStorage.setItem("categorias", JSON.stringify(categorias));
 // }
