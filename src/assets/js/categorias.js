@@ -208,6 +208,8 @@ $(document).ready(function () {
     preencherSubMenuReceitas();
     preencherSubMenuPlanejamentos();
     gerarOpcoesSelectAddGastoModal();
+    gerarOpcoesSelectAddReceitaModal();
+    gerarOpcoesSelectAddPlanejamentoModal();
   });
 });
 
