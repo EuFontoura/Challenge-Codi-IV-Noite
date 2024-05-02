@@ -61,7 +61,11 @@ $("#dataAdicionarReceita").flatpickr({
   dateFormat: "d/m/Y ",
   enableTime: false,
 });
-
+$("#dataAdicionarPlanejamento").flatpickr({
+  enableTime: true,
+  dateFormat: "d/m/Y ",
+  enableTime: false,
+});
 $(document).ready(function () {
   verificarLancamentosMes();
   atualizarTabela();
