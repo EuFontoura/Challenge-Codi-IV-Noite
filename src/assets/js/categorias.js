@@ -56,35 +56,60 @@ var categorias = {
   ],
 };
 
-// Função para atualizar a tabela de acordo com a categoria selecionada
+// Função para atualizar a tabela de acordo com a categoria selecionada e o mês atual
 const atualizarTabela = () => {
   const filtro = document.getElementById('filtro-categorias').value;
   const corpoTabela = document.getElementById('corpo-tabela');
-  corpoTabela.innerHTML = ''; // Limpa o conteúdo atual da tabela
+  corpoTabela.innerHTML = '';
 
-  let numeroLinha = 1;
+  const mesAtual = meses[mesIndex];
+
   categorias.categoriasGasto.forEach((categoria) => {
     if (filtro === '' || categoria.nome === filtro) {
       categoria.gastos.forEach((gasto) => {
-        const novaLinha = document.createElement('tr');
-        novaLinha.innerHTML = `
-          <th scope="row">${numeroLinha}</th>
-          <td>${gasto.nome}</td>
-          <td>${gasto.valor}</td>
-        `;
-        corpoTabela.appendChild(novaLinha);
-        numeroLinha++;
+
+        const partesData = gasto.data.split("/");
+        const mesGasto = parseInt(partesData[1], 10);
+        if (meses[mesGasto - 1] === mesAtual) {
+          const novaLinha = document.createElement('tr');
+          novaLinha.innerHTML = `
+            <td class="td-gasto">${gasto.nome}</td>
+            <td class="td-gasto">${gasto.valor}</td>
+          `;
+          corpoTabela.appendChild(novaLinha);
+        }
+      });
+    }
+  });
+
+  categorias.categoriasReceita.forEach((categoria) => {
+    if (filtro === '' || categoria.nome === filtro) {
+      categoria.receitas.forEach((receita) => {
+
+        const partesData = receita.data.split("/");
+        const mesReceita = parseInt(partesData[1], 10);
+        if (meses[mesReceita - 1] === mesAtual) {
+          const novaLinha = document.createElement('tr');
+          novaLinha.innerHTML = `
+            <td class="td-receita">${receita.nome}</td>
+            <td class="td-receita">${receita.valor}</td>
+          `;
+          corpoTabela.appendChild(novaLinha);
+        }
       });
     }
   });
 };
 
-
 const filtroCategorias = document.getElementById('filtro-categorias');
 filtroCategorias.addEventListener('change', atualizarTabela);
 
-
-atualizarTabela();
+// Atualizar a tabela e os gráficos quando o documento estiver pronto
+$(document).ready(function () {
+  verificarLancamentosMes();
+  atualizarTabela();
+  atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
+});
 
 
 // function salvarCategorias() {

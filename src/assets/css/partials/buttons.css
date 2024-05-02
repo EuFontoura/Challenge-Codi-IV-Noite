@@ -31,9 +31,9 @@
 }
 
 .add-receita {
-  background-color: green;
+  background-color: var(--receita-color);
 }
 
 .add-despesa {
-  background-color: red;
+  background-color: var(--despesa-color);
 }

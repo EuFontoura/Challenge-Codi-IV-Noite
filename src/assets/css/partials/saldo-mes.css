@@ -1,0 +1,38 @@
+.saldo-mensal {
+    margin-top: 50px;
+    margin-bottom: 15px;
+    height: 80px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    border-radius: 15px;
+    width: 260px;
+    padding: 10px;
+    background-color: var(--second-bg-color);
+}
+
+.card-head {
+    text-align: center;
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+}
+
+.card-body {
+    color: white;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+}
+
+@media (max-width: 768px) {
+    .saldo-mensal {
+        width: 100%;
+        padding: 10px;
+    }
+}

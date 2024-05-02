@@ -71,9 +71,19 @@
     <div class="main">
       <div class="selecionar-mes">
         <div class="mes-seletor">
-          <button class="anterior" onclick="mesAnterior()">&#8249;</button>
+          <button class="anterior" onclick="attDadosMesAnterior()">&#8249;</button>
           <div class="mes-atual"></div>
-          <button class="proximo" onclick="mesProximo()">&#8250;</button>
+          <button class="proximo" onclick="attDadosMesSeguinte()">&#8250;</button>
+        </div>
+      </div>
+      <div class="saldo-mensal">
+        <div class="card">
+          <div class="card-head">
+            Saldo:
+          </div>
+          <div class="card-body">
+            <span id="saldo"></span>
+          </div>
         </div>
       </div>
       <div class="msg-sem-lancamento">
@@ -82,20 +92,14 @@
       <div class="conteudo-mes">
         <div class="grafico-mensal">
           <div class="graficos">
-            <div>
-              <h1>Receitas</h1>
+            <div class="grafico">
+              <h1 id="chartTitleReceita">Receitas</h1>
               <canvas id="chartCategoriasReceita"></canvas>
             </div>
-            <div>
-              <h1>Gastos</h1>
+            <div class="grafico">
+              <h1 id="chartTitleGasto">Gastos</h1>
               <canvas id="chartCategoriasGasto"></canvas>
             </div>
-          </div>
-        </div>
-        <div class="planejamento" style="width: 75%;">
-          <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0"
-            aria-valuemax="100">
-            <div class="progress-bar" style="width: 25%">25%</div>
           </div>
         </div>
         <div class="resumo-mensal">
@@ -109,18 +113,18 @@
             <option value="Comprar Carro">Comprar Carro</option>
             <option value="Poupança">Poupança</option>
           </select>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Valor</th>
-              </tr>
-            </thead>
-            <tbody id="corpo-tabela">
-              <!-- Linhas serão adicionadas dinamicamente aqui -->
-            </tbody>
-          </table>
+          <div class="table-resume">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Valor</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="botoes">
@@ -383,7 +387,9 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="assets/js/tooltips.js"></script>
     <script src="assets/js/toast.js"></script>
+    <script src="assets/js/meses.js"></script>
     <script src="assets/js/categorias.js"></script>
+    <script src="assets/js/saldo.js"></script>
     <script src="assets/js/navbar.js"></script>
     <script src="assets/js/graficos.js"></script>
     <script src="assets/js/calendar.js"></script>

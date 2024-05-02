@@ -70,6 +70,7 @@ $(document).ready(function () {
     $("#modalAdicionarDespesa").modal("hide");
     verificarLancamentosMes();
     atualizarTabela();
+    saldoMensal();
     atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
     isProcessingForm = false;
   });
