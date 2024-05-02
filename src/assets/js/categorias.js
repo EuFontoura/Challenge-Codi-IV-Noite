@@ -79,11 +79,11 @@ const atualizarTabela = () => {
   });
 };
 
-// Associando o evento de alteração ao elemento select
+
 const filtroCategorias = document.getElementById('filtro-categorias');
 filtroCategorias.addEventListener('change', atualizarTabela);
 
-// Chama a função inicialmente para exibir todos os gastos
+
 atualizarTabela();
 
 

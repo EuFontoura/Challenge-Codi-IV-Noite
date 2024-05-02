@@ -30,7 +30,8 @@
       <div class="menu-content">
         <ul class="menu-items">
           <li class="menu-item" style="border: 2px solid #198754; border-radius: 15px;">
-            <a data-bs-toggle="modal" data-bs-target="#modalCategoria">
+            <a data-bs-toggle="modal" data-bs-target="#modalCategoria" data-toggle="tooltip" data-placement="top"
+              title="Adicionar Nova Categoria">
               <i class="fa-solid fa-square-plus" id="add-icon"></i>
             </a>
           </li>
@@ -124,8 +125,10 @@
       </div>
       <div class="botoes">
         <div class="button-seletor">
-          <button class="add-receita"><i class="fa-solid fa-plus"></i></button>
-          <button class="add-despesa"><i class="fa-solid fa-plus"></i></button>
+          <button class="add-receita" data-toggle="tooltip" data-placement="top" title="Adicionar Receita"><i
+              class="fa-solid fa-plus"></i></button>
+          <button class="add-despesa" data-toggle="tooltip" data-placement="top" title="Adicionar Gasto"><i
+              class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div>
@@ -378,6 +381,7 @@
       crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="assets/js/tooltips.js"></script>
     <script src="assets/js/toast.js"></script>
     <script src="assets/js/categorias.js"></script>
     <script src="assets/js/navbar.js"></script>
