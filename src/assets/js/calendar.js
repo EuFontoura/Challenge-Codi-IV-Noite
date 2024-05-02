@@ -1,22 +1,3 @@
-const meses = [
-  "Janeiro",
-  "Fevereiro",
-  "Março",
-  "Abril",
-  "Maio",
-  "Junho",
-  "Julho",
-  "Agosto",
-  "Setembro",
-  "Outubro",
-  "Novembro",
-  "Dezembro",
-];
-
-var mesIndex = new Date().getMonth();
-const mesAtualElement = document.querySelector(".mes-atual");
-mesAtualElement.textContent = meses[mesIndex];
-
 function verificarLancamentosMes() {
   const conteudoMes = document.querySelector(".conteudo-mes");
   const msgSemLancamento = document.querySelector(".msg-sem-lancamento");
@@ -53,20 +34,20 @@ function verificarLancamentosMes() {
 verificarLancamentosMes();
 
 // Função para avançar para o próximo mês
-function mesProximo() {
-  mesIndex = (mesIndex + 1) % 12;
-  const mesAtualElement = document.querySelector(".mes-atual");
-  mesAtualElement.textContent = meses[mesIndex];
+function attDadosMesSeguinte() {
+  mesProximo();
   verificarLancamentosMes();
+  saldoMensal();
+  atualizarTabela();
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 }
 
 // Função para retroceder para o mês anterior
-function mesAnterior() {
-  mesIndex = (mesIndex - 1 + 12) % 12;
-  const mesAtualElement = document.querySelector(".mes-atual");
-  mesAtualElement.textContent = meses[mesIndex];
+function attDadosMesAnterior() {
+  mesAnterior();
   verificarLancamentosMes();
+  saldoMensal();
+  atualizarTabela();
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 }
 
@@ -83,5 +64,6 @@ $("#dataAdicionarReceita").flatpickr({
 
 $(document).ready(function () {
   verificarLancamentosMes();
+  atualizarTabela();
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 });

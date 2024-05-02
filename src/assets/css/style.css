@@ -3,6 +3,7 @@
 @import url(partials/sidebar.css);
 @import url(partials/main.css);
 @import url(partials/navbar.css);
+@import url(partials/saldo-mes.css);
 
 * {
   margin: 0;
@@ -20,6 +21,8 @@ h1 {
   --main-text-color: #ffffff;
   --second-bg-color: #2c2c2c;
   --hover-color: #198754;
+  --despesa-color: #a71d1d;
+  --receita-color: #198754;
 }
 
 .app {
