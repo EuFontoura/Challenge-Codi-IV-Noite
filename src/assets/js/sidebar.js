@@ -57,6 +57,7 @@ function preencherSubMenuReceitas() {
 
     submenuReceitas.appendChild(li);
   });
+  preencherSelectCategorias();
 }
 
 // Preenche o submenu da sidebar com as categorias
@@ -81,6 +82,7 @@ function preencherSubMenuGastos() {
 
     submenuGastos.appendChild(li);
   });
+  preencherSelectCategorias();
 }
 
 // Preenche o submenu da sidebar com as categorias
@@ -106,5 +108,3 @@ function preencherSubMenuPlanejamentos() {
     submenuPlanejamentos.appendChild(li);
   });
 }
-
-

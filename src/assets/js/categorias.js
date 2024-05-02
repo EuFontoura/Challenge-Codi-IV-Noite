@@ -56,22 +56,47 @@ var categorias = {
   ],
 };
 
+function preencherSelectCategorias() {
+  var selectCategorias = document.getElementById("filtro-categorias");
+  selectCategorias.innerHTML = "";
+
+  var todasCategoriasOption = document.createElement("option");
+  todasCategoriasOption.value = "";
+  todasCategoriasOption.textContent = "Todas as categorias";
+  selectCategorias.appendChild(todasCategoriasOption);
+
+  categorias.categoriasGasto.forEach(function (categoria) {
+    var option = document.createElement("option");
+    option.value = categoria.nome;
+    option.textContent = categoria.nome;
+    selectCategorias.appendChild(option);
+  });
+  categorias.categoriasReceita.forEach(function (categoria) {
+    var option = document.createElement("option");
+    option.value = categoria.nome;
+    option.textContent = categoria.nome;
+    selectCategorias.appendChild(option);
+  });
+}
+
+// Chame a função para preencher o select quando necessário
+preencherSelectCategorias();
+
 // Função para atualizar a tabela de acordo com a categoria selecionada e o mês atual
 const atualizarTabela = () => {
-  const filtro = document.getElementById('filtro-categorias').value;
-  const corpoTabela = document.getElementById('corpo-tabela');
-  corpoTabela.innerHTML = '';
+  const filtro = document.getElementById("filtro-categorias").value;
+  const corpoTabela = document.getElementById("corpo-tabela");
+  corpoTabela.innerHTML = "";
 
   const mesAtual = meses[mesIndex];
 
   categorias.categoriasGasto.forEach((categoria) => {
-    if (filtro === '' || categoria.nome === filtro) {
+    if (filtro === "" || categoria.nome === filtro) {
       categoria.gastos.forEach((gasto) => {
-
         const partesData = gasto.data.split("/");
         const mesGasto = parseInt(partesData[1], 10);
         if (meses[mesGasto - 1] === mesAtual) {
-          const novaLinha = document.createElement('tr');
+          const novaLinha = document.createElement("tr");
           novaLinha.innerHTML = `
             <td class="td-gasto">${gasto.nome}</td>
             <td class="td-gasto">${gasto.valor}</td>
@@ -83,13 +108,12 @@ const atualizarTabela = () => {
   });
 
   categorias.categoriasReceita.forEach((categoria) => {
-    if (filtro === '' || categoria.nome === filtro) {
+    if (filtro === "" || categoria.nome === filtro) {
       categoria.receitas.forEach((receita) => {
-
         const partesData = receita.data.split("/");
         const mesReceita = parseInt(partesData[1], 10);
         if (meses[mesReceita - 1] === mesAtual) {
-          const novaLinha = document.createElement('tr');
+          const novaLinha = document.createElement("tr");
           novaLinha.innerHTML = `
             <td class="td-receita">${receita.nome}</td>
             <td class="td-receita">${receita.valor}</td>
@@ -101,8 +125,8 @@ const atualizarTabela = () => {
   });
 };
 
-const filtroCategorias = document.getElementById('filtro-categorias');
-filtroCategorias.addEventListener('change', atualizarTabela);
+const filtroCategorias = document.getElementById("filtro-categorias");
+filtroCategorias.addEventListener("change", atualizarTabela);
 
 // Atualizar a tabela e os gráficos quando o documento estiver pronto
 $(document).ready(function () {
@@ -110,7 +134,6 @@ $(document).ready(function () {
   atualizarTabela();
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 });
-
 
 // function salvarCategorias() {
 //   localStorage.setItem("categorias", JSON.stringify(categorias));
