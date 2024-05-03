@@ -1,18 +1,24 @@
-// Preencher select com options de categoria
-function gerarOpcoesSelectAddPlanejamentoModal() {
-    var selectCategoria = document.getElementById("categoriaAdicionarPlanejamento");
-    selectCategoria.innerHTML = "";
+
+planejamentos: [
+  {
+    id: crypto.randomUUID(),
+    nome: "Comprar Carro",
+    icone: "fa-solid fa-car-side",
+    lancamentos: [],
+    meta: 0,
+    created_at: new Date(),
+  },
+  {
+    id: crypto.randomUUID(),
+    nome: "Poupança",
+    icone: "fas fa-piggy-bank",
+    lancamentos: [],
+    meta: 0,
+    created_at: new Date(),
+  },
+]
   
-    categorias.categoriasPlanejamento.forEach(function (categoria) {
-      var option = document.createElement("option");
-      option.value = categoria.nome;
-      option.text = categoria.nome;
-      selectCategoria.appendChild(option);
-    });
-  }
-  gerarOpcoesSelectAddPlanejamentoModal();
-  
-  // Adicionar Planejamento
+// Adicionar Lançamento
   $(document).ready(function () {
     var isProcessingForm = false;
   
@@ -24,52 +30,29 @@ function gerarOpcoesSelectAddPlanejamentoModal() {
       }
   
       isProcessingForm = true;
-  
-      var nomeCategoria = $("#categoriaAdicionarPlanejamento option:selected")
-        .val()
-        .trim();
-      var nomePlanejamento = $("#nomeAdicionarPlanejamento").val().trim();
-      var valorPlanejamento = $("#valorAdicionarPlanejamento").val().trim();
-      var descricaoPlanejamento = $("#descricaoAdicionarPlanejamento").val().trim();
-      var dataPlanejamento = $("#dataAdicionarPlanejamento").val().trim();
+
+      var valor = $("#valorLancamento").val().trim();
+      var data = $("#dataLancamento").val().trim();
   
       if (
-        nomeCategoria === "" ||
-        nomePlanejamento === "" ||
-        valorPlanejamento === "" ||
-        dataPlanejamento === ""
+        valor === "" ||
+        data === ""
       ) {
         exibirToast("Por favor, preencha todos os campos!", "#871919");
         isProcessingForm = false;
         return;
       }
   
-      var categoriaExistente = categorias.categoriasPlanejamento.find(function (
-        categoria
-      ) {
-        return categoria.nome === nomeCategoria;
-      });
-  
-      if (!categoriaExistente) {
-        exibirToast("Categoria não encontrada!", "#871919");
-        isProcessingForm = false;
-        return;
-      }
-  
-      categoriaExistente.planejamentos.push({
+      planejamentos.lancamentos.push({
         id: crypto.randomUUID(),
-        nome: nomePlanejamento,
-        valor: parseFloat(valorPlanejamento.replace(",", ".")),
-        descricao: descricaoPlanejamento,
-        data: dataPlanejamento,
+        valor: parseFloat(valor.replace(",", ".")),
+        data: data,
         created_at: new Date(),
       });
   
-      exibirToast("Planejamento adicionado com sucesso!", "#198754");
+      exibirToast("Lançamento adicionado com sucesso!", "#198754");
   
-      $("#modalAdicionarPlanejamento").modal("hide");
-      verificarLancamentosMes();
-      atualizarTabela();
+      $("#modalAdicionarLancamento").modal("hide");
       isProcessingForm = false;
     });
   });

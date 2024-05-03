@@ -37,24 +37,10 @@ var categorias = {
       receitas: [],
       created_at: new Date(),
     },
-  ],
-  categoriasPlanejamento: [
-    {
-      id: crypto.randomUUID(),
-      nome: "Comprar Carro",
-      icone: "fa-solid fa-car-side",
-      planejamentos: [],
-      created_at: new Date(),
-    },
-    {
-      id: crypto.randomUUID(),
-      nome: "Poupança",
-      icone: "fas fa-piggy-bank",
-      planejamentos: [],
-      created_at: new Date(),
-    },
-  ],
+  ]
 };
+
+
 
 function preencherSelectCategorias() {
   var selectCategorias = document.getElementById("filtro-categorias");
@@ -98,8 +84,9 @@ const atualizarTabela = () => {
         if (meses[mesGasto - 1] === mesAtual) {
           const novaLinha = document.createElement("tr");
           novaLinha.innerHTML = `
+            <td class="td-gasto">${gasto.data}</td>
             <td class="td-gasto">${gasto.nome}</td>
-            <td class="td-gasto">${gasto.valor}</td>
+            <td class="td-gasto">R$ ${gasto.valor}</td>
           `;
           corpoTabela.appendChild(novaLinha);
         }
@@ -115,8 +102,9 @@ const atualizarTabela = () => {
         if (meses[mesReceita - 1] === mesAtual) {
           const novaLinha = document.createElement("tr");
           novaLinha.innerHTML = `
+            <td class="td-receita">${receita.data}</td>
             <td class="td-receita">${receita.nome}</td>
-            <td class="td-receita">${receita.valor}</td>
+            <td class="td-receita">R$ ${receita.valor}</td>
           `;
           corpoTabela.appendChild(novaLinha);
         }
