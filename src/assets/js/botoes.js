@@ -40,13 +40,11 @@ $(document).ready(function () {
       valorCategoria =
         valorCategoria.slice(0, -2) + "," + valorCategoria.slice(-2);
     } else {
-
       var partes = valorCategoria.split(",");
       var parteInteira = partes[0];
       var decimais = partes[1];
 
       if (decimais.length !== 2) {
-
         decimais = decimais.padEnd(2, "0").slice(0, 2);
       }
 
@@ -61,14 +59,12 @@ $(document).ready(function () {
     ) {
       $(this).removeClass("is-valid").addClass("is-invalid");
     } else {
-
       $(this).removeClass("is-invalid").addClass("is-valid");
     }
   });
 });
 
 $(document).ready(function () {
-
   $(".add-despesa").on("click", function () {
     $("#modalAdicionarDespesa").modal("show");
   });
@@ -129,9 +125,7 @@ $(document).ready(function () {
   });
 });
 
-
 $(document).ready(function () {
-
   $(".add-planejamento").on("click", function () {
     $("#modalAdicionarPlanejamento").modal("show");
   });
@@ -142,21 +136,21 @@ $(document).ready(function () {
     $("#modalAdicionarPlanejamento").removeClass("is-valid is-invalid");
   });
 
-  $("#nomeAdicionarPlanejamento").on("input", function () {
-    var nomeCategoria = $(this).val().trim();
-    nomeCategoria = nomeCategoria.replace(/[^a-zA-ZÀ-ÿ ]/g, "");
-    if (nomeCategoria !== "") {
-      var nomeCapitalizado =
-        nomeCategoria.charAt(0).toUpperCase() +
-        nomeCategoria.slice(1).toLowerCase();
-      $(this).val(nomeCapitalizado);
-    }
-    if (nomeCategoria === "") {
-      $(this).removeClass("is-valid").addClass("is-invalid");
-    } else {
-      $(this).removeClass("is-invalid").addClass("is-valid");
-    }
-  });
+  // $("#nomeAdicionarPlanejamento").on("input", function () {
+  //   var nomePlanejamento = $(this).val().trim();
+  //   nomePlanejamento = nomePlanejamento.replace(/[^a-zA-ZÀ-ÿ ]/g, "");
+  //   if (nomePlanejamento !== "") {
+  //     var nomeCapitalizado =
+  //       nomePlanejamento.charAt(0).toUpperCase() +
+  //       nomePlanejamento.slice(1).toLowerCase();
+  //     $(this).val(nomeCapitalizado);
+  //   }
+  //   if (nomePlanejamento === "") {
+  //     $(this).removeClass("is-valid").addClass("is-invalid");
+  //   } else {
+  //     $(this).removeClass("is-invalid").addClass("is-valid");
+  //   }
+  // });
 
   $("#valorAdicionarPlanejamento").on("blur", function () {
     var valorCategoria = $(this).val().trim();

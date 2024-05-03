@@ -90,7 +90,7 @@ function preencherSubMenuPlanejamentos() {
   var submenuPlanejamentos = document.getElementById("submenuPlanejamentos");
   submenuPlanejamentos.innerHTML = "";
 
-  categorias.categoriasPlanejamento.forEach(function (categoria) {
+  planejamentos.forEach(function (categoria) {
     var li = document.createElement("li");
     li.classList.add("menu-item");
 

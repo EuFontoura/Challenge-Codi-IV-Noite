@@ -37,10 +37,8 @@ var categorias = {
       receitas: [],
       created_at: new Date(),
     },
-  ]
+  ],
 };
-
-
 
 function preencherSelectCategorias() {
   var selectCategorias = document.getElementById("filtro-categorias");
@@ -140,7 +138,7 @@ $(document).ready(function () {
 
 /* CRUD */
 
-// Adicionar Categoria
+// Adicionar Categoria Gastos e Receitas
 $(document).ready(function () {
   var isProcessingForm = false;
 
@@ -194,10 +192,8 @@ $(document).ready(function () {
     if (!isProcessingForm) $("#categoriaForm").submit();
     preencherSubMenuGastos();
     preencherSubMenuReceitas();
-    preencherSubMenuPlanejamentos();
     gerarOpcoesSelectAddGastoModal();
     gerarOpcoesSelectAddReceitaModal();
-    gerarOpcoesSelectAddPlanejamentoModal();
   });
 });
 
@@ -231,5 +227,4 @@ $(document).ready(function () {
 $(document).ready(function () {
   preencherSubMenuGastos();
   preencherSubMenuReceitas();
-  preencherSubMenuPlanejamentos();
 });
