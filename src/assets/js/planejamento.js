@@ -1,38 +1,21 @@
-var planejamentos = [
-  {
-    id: crypto.randomUUID(),
-    nome: "Comprar Carro",
-    icone: "fa-solid fa-car-side",
-    lancamentos: [],
-    meta: 0,
-    created_at: new Date(),
-  },
-  {
-    id: crypto.randomUUID(),
-    nome: "Poupança",
-    icone: "fas fa-piggy-bank",
-    lancamentos: [],
-    meta: 0,
-    created_at: new Date(),
-  },
-];
+var planejamentos = [];
 
-function gerarOpcoesSelectAddPlanejamentoModal() {
-  var selectCategoria = document.getElementById(
-    "categoriaAdicionarPlanejamento"
-  );
-  selectCategoria.innerHTML = "";
+// function salvarPlanejamentos() {
+//   localStorage.setItem("planejamentos", JSON.stringify(planejamentos));
+// }
 
-  planejamentos.forEach(function (categoria) {
-    var option = document.createElement("option");
-    option.value = categoria.nome;
-    option.text = categoria.nome;
-    selectCategoria.appendChild(option);
-  });
-}
-gerarOpcoesSelectAddPlanejamentoModal();
+// function recuperarPlanejamentos() {
+//   var planejamentosSalvos = localStorage.getItem("planejamentos");
+//   if (planejamentosSalvos) {
+//     planejamentos = JSON.parse(planejamentosSalvos);
+//   }
+// }
 
-// Adicionar Categoria Planejamento
+// document.addEventListener("DOMContentLoaded", recuperarPlanejamentos);
+
+// window.addEventListener("beforeunload", salvarPlanejamentos);
+
+// Adicionar Planejamento
 $(document).ready(function () {
   var isProcessingForm = false;
 
@@ -42,22 +25,22 @@ $(document).ready(function () {
     if (isProcessingForm) return;
     isProcessingForm = true;
 
-    var metaCategoria = $("#metaPlanejamento").val().trim();
-    var nomeCategoria = $("#nomePlanejamento").val().trim();
+    var metaPlanejamento = $("#metaPlanejamento").val().trim();
+    var nomePlanejamento = $("#nomePlanejamento").val().trim();
     var icon = $("#iconePlanejamento .btn-secondary").attr("data-icon");
 
-    if (!nomeCategoria) {
+    if (!nomePlanejamento) {
       $("#nomePlanejamento").addClass("is-invalid");
       isProcessingForm = false;
       return;
     }
 
-    var novaCategoria = {
+    var novoPlanejamento = {
       id: crypto.randomUUID(),
-      nome: nomeCategoria,
+      nome: nomePlanejamento,
       icone: icon,
       lancamentos: [],
-      meta: metaCategoria,
+      meta: metaPlanejamento,
       created_at: new Date(),
     };
 
@@ -72,7 +55,7 @@ $(document).ready(function () {
       return;
     }
 
-    planejamentosArray.push(novaCategoria);
+    planejamentosArray.push(novoPlanejamento);
 
     exibirToast("Planejamento adicionado com sucesso!", "#198754");
     $("#modalPlanejamento").modal("hide");
@@ -87,7 +70,6 @@ $(document).ready(function () {
 
     if (!isProcessingForm) $("#planejamentoForm").submit();
     preencherSubMenuPlanejamentos();
-    gerarOpcoesSelectAddPlanejamentoModal();
   });
 });
 
@@ -120,66 +102,61 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   preencherSubMenuPlanejamentos();
-  gerarOpcoesSelectAddPlanejamentoModal();
+
 });
 
-// Adicionar Lançamento
-$(document).ready(function () {
-  var isProcessingForm = false;
 
-  $("#adicionarFormPlanejamento").submit(function (event) {
-    event.preventDefault();
+const atualizarTabelaPlanejamento = (planejamento) => {
+  const corpoTabela = document.getElementById("corpo-tabela-planejamento");
+  corpoTabela.innerHTML = "";
 
-    if (isProcessingForm) {
-      return;
-    }
+  planejamento.lancamentos.forEach((lancamento) =>{
+    const novaLinha = document.createElement("tr");
+  novaLinha.innerHTML = `
+            <td class="td-gasto">${lancamento.data}</td>
+            <td class="td-gasto">R$ ${lancamento.valor}</td>
+          `;
+  corpoTabela.appendChild(novaLinha);
+  })
 
-    isProcessingForm = true;
-
-    var nomePlanejamento = $("#categoriaAdicionarPlanejamento option:selected")
-      .val()
-      .trim();
-    var valor = $("#valorAdicionarPlanejamento").val().trim();
-    var descricao = $("#descricaoAdicionarPlanejamento").val().trim();
-    var data = $("#dataAdicionarPlanejamento").val().trim();
-
-    if (valor === "" || data === "") {
-      exibirToast("Por favor, preencha todos os campos!", "#871919");
-      isProcessingForm = false;
-      return;
-    }
-    var planejamentoExistente = planejamentos.find(function (categoria) {
-      return categoria.nome === nomePlanejamento;
-    });
-
-    if (!planejamentoExistente) {
-      exibirToast("Categoria não encontrada!", "#871919");
-      isProcessingForm = false;
-      return;
-    }
-
-    planejamentoExistente.lancamentos.push({
-      id: crypto.randomUUID(),
-      valor: parseFloat(valor.replace(",", ".")),
-      descricao: descricao,
-      data: data,
-      created_at: new Date(),
-    });
-
-    exibirToast("Lançamento adicionado com sucesso!", "#198754");
-
-    $("#modalAdicionarPlanejamento").modal("hide");
-    isProcessingForm = false;
-  });
-});
+  
+};
 
 //Muda tela Principal
 function exibirPlanejamento(id) {
   const planejamento = planejamentos.find((p) => {
     return p.id === id;
   });
-  console.log("🚀 ~ planejamento ~ planejamento:", planejamento);
 
   $(".main").css({ display: "none" });
   $(".main-planejamento").css({ display: "flex" });
+
+  const titulo = document.getElementById('chartTitlePlanejamento');
+  titulo.innerHTML = planejamento.nome;
+
+  const meta = document.getElementById('meta');
+  meta.innerHTML = planejamento.meta;
+
+  atualizarTabelaPlanejamento(planejamento);
+
+  console.log(typeof(planejamento.meta))
+
+  atualizarMeta();
 }
+
+function atualizarMeta(){
+  const planejamento = planejamentos.find((p) => {
+    return p.nome === document.getElementById("chartTitlePlanejamento").textContent;
+  });
+
+  const valorTotalInvestido = planejamento.lancamentos.reduce((total, lancamento) => {
+    return total + lancamento.valor;
+  }, 0);
+
+  planejamento.meta.parseFloat = planejamento.meta.parseFloat - valorTotalInvestido.parseFloat;
+
+  console.log(planejamento.meta);
+};
+
+
+

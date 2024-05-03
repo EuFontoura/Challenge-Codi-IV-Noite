@@ -61,7 +61,7 @@ $("#dataAdicionarReceita").flatpickr({
   dateFormat: "d/m/Y ",
   enableTime: false,
 });
-$("#dataAdicionarPlanejamento").flatpickr({
+$("#dataLancamento").flatpickr({
   enableTime: true,
   dateFormat: "d/m/Y ",
   enableTime: false,

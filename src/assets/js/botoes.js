@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  // Evento para abrir o modal
   $(".add-receita").on("click", function () {
     $("#modalAdicionarReceita").modal("show");
   });
@@ -27,7 +26,7 @@ $(document).ready(function () {
   });
 
   $("#valorAdicionarReceita").on("blur", function () {
-    // Obter o valor do campo de input
+    
     var valorCategoria = $(this).val().trim();
 
     valorCategoria = valorCategoria.replace(/[^0-9,]/g, "");
@@ -127,57 +126,41 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $(".add-planejamento").on("click", function () {
-    $("#modalAdicionarPlanejamento").modal("show");
+    $("#modalAdicionarLancamento").modal("show");
   });
 
-  $("#modalAdicionarPlanejamento").on("hidden.bs.modal", function () {
-    $("#adicionarFormPlanejamento")[0].reset();
-    $("#valorAdicionarPlanejamento").removeClass("is-valid is-invalid");
-    $("#modalAdicionarPlanejamento").removeClass("is-valid is-invalid");
+  $("#modalAdicionarLancamento").on("hidden.bs.modal", function () {
+    $("#adicionarFormLancamento")[0].reset();
+    $("#valorLancamento").removeClass("is-valid is-invalid");
+    $("#modalAdicionarLancamento").removeClass("is-valid is-invalid");
   });
 
-  // $("#nomeAdicionarPlanejamento").on("input", function () {
-  //   var nomePlanejamento = $(this).val().trim();
-  //   nomePlanejamento = nomePlanejamento.replace(/[^a-zA-ZÀ-ÿ ]/g, "");
-  //   if (nomePlanejamento !== "") {
-  //     var nomeCapitalizado =
-  //       nomePlanejamento.charAt(0).toUpperCase() +
-  //       nomePlanejamento.slice(1).toLowerCase();
-  //     $(this).val(nomeCapitalizado);
-  //   }
-  //   if (nomePlanejamento === "") {
-  //     $(this).removeClass("is-valid").addClass("is-invalid");
-  //   } else {
-  //     $(this).removeClass("is-invalid").addClass("is-valid");
-  //   }
-  // });
+  $("#valorLancamento").on("blur", function () {
+    var valorLancamento = $(this).val().trim();
 
-  $("#valorAdicionarPlanejamento").on("blur", function () {
-    var valorCategoria = $(this).val().trim();
+    valorLancamento = valorLancamento.replace(/[^0-9,]/g, "");
 
-    valorCategoria = valorCategoria.replace(/[^0-9,]/g, "");
-
-    if (!valorCategoria.includes(",")) {
-      if (valorCategoria === "") {
-        valorCategoria = "0";
+    if (!valorLancamento.includes(",")) {
+      if (valorLancamento === "") {
+        valorLancamento = "0";
       }
-      valorCategoria += "00";
-      valorCategoria =
-        valorCategoria.slice(0, -2) + "," + valorCategoria.slice(-2);
+      valorLancamento += "00";
+      valorLancamento =
+        valorLancamento.slice(0, -2) + "," + valorLancamento.slice(-2);
     } else {
-      var partes = valorCategoria.split(",");
+      var partes = valorLancamento.split(",");
       var parteInteira = partes[0];
       var decimais = partes[1];
       if (decimais.length !== 2) {
         decimais = decimais.padEnd(2, "0").slice(0, 2);
       }
 
-      valorCategoria = parteInteira + "," + decimais;
+      valorLancamento = parteInteira + "," + decimais;
     }
-    $(this).val(valorCategoria);
+    $(this).val(valorLancamento);
     if (
-      valorCategoria === "0,00" ||
-      !/^\d{1,3}(?:\.\d{3})*|\d+,\d{2}$/.test(valorCategoria)
+      valorLancamento === "0,00" ||
+      !/^\d{1,3}(?:\.\d{3})*|\d+,\d{2}$/.test(valorLancamento)
     ) {
       $(this).removeClass("is-valid").addClass("is-invalid");
     } else {

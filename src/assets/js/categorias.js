@@ -136,7 +136,6 @@ $(document).ready(function () {
 
 // window.addEventListener("beforeunload", salvarCategorias);
 
-/* CRUD */
 
 // Adicionar Categoria Gastos e Receitas
 $(document).ready(function () {
