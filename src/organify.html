@@ -21,12 +21,16 @@
   <div class="app">
 
     <div class="navbar">
+      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
       <button class="toggleButton" type="button"><i class="fa-solid fa-bars"></i></button>
     </div>
 
     <!-- Siderbar -->
     <div class="sidebar">
-      <img src="assets/images/logo.png" class="logo" alt="logo" />
+      <div class="logomarca">
+      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
+    </div>
+
       <div class="menu-content">
         <ul class="menu-items">
           <li class="menu-item" style="border: 2px solid #198754; border-radius: 15px;">
@@ -36,7 +40,7 @@
             </a>
           </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item" onclick="home()">
               <span>Gastos</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
@@ -46,7 +50,7 @@
             </ul>
           </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item"  onclick="home()">
               <span>Receitas</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
@@ -74,7 +78,7 @@
     </div>
 
     <!-- Main -->
-    <!-- <div class="main">
+    <div class="main">
       <div class="selecionar-mes">
         <div class="mes-seletor">
           <button class="anterior" onclick="attDadosMesAnterior()">&#8249;</button>
@@ -136,12 +140,12 @@
               class="fa-solid fa-plus"></i></button>
         </div>
       </div>
-    </div> -->
+    </div>
 
 
 
     <!-- Planejamento -->
-    <div class="main">
+    <div class="main-planejamento ">
       <div class="saldo-meta">
         <div class="card">
           <div class="card-head">

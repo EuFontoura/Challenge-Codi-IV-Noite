@@ -172,3 +172,14 @@ $(document).ready(function () {
     isProcessingForm = false;
   });
 });
+
+//Muda tela Principal
+function exibirPlanejamento(id) {
+  const planejamento = planejamentos.find((p) => {
+    return p.id === id;
+  });
+  console.log("🚀 ~ planejamento ~ planejamento:", planejamento);
+
+  $(".main").css({ display: "none" });
+  $(".main-planejamento").css({ display: "flex" });
+}

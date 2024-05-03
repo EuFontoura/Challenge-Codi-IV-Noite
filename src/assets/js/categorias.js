@@ -228,3 +228,8 @@ $(document).ready(function () {
   preencherSubMenuGastos();
   preencherSubMenuReceitas();
 });
+
+function home() {
+  $(".main").css({ display: "flex" });
+  $(".main-planejamento").css({ display: "none" });
+}

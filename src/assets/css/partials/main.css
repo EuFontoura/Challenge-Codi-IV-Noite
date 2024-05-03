@@ -4,39 +4,53 @@
 @import url(resume.css);
 
 .main {
-    flex: 6;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background: var(--main-bg-color);
-    justify-content: space-between;
-    gap: 1rem;
-    overflow: scroll;
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--main-bg-color);
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: scroll;
 }
 
 .main::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .conteudo-mes {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-    gap: .5rem;
-    overflow-y: auto;
-    height: 700px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  overflow-y: auto;
+  height: 700px;
 }
 
 .msg-sem-lancamento {
-    display: none;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: .5rem;
-    overflow-y: auto;
-    height: 700px;
-    gap: .5rem;
+  display: none;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow-y: auto;
+  height: 700px;
+  gap: 0.5rem;
+}
+
+.main-planejamento {
+  flex: 6;
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--main-bg-color);
+  justify-content: space-between;
+  gap: 1rem;
+  overflow: scroll;
+}
+.main-planejamento::-webkit-scrollbar {
+  display: none;
 }
