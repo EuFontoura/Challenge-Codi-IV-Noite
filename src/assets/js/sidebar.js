@@ -57,6 +57,7 @@ function preencherSubMenuReceitas() {
 
     submenuReceitas.appendChild(li);
   });
+  preencherSelectCategorias();
 }
 
 // Preenche o submenu da sidebar com as categorias
@@ -81,6 +82,7 @@ function preencherSubMenuGastos() {
 
     submenuGastos.appendChild(li);
   });
+  preencherSelectCategorias();
 }
 
 // Preenche o submenu da sidebar com as categorias
@@ -88,23 +90,22 @@ function preencherSubMenuPlanejamentos() {
   var submenuPlanejamentos = document.getElementById("submenuPlanejamentos");
   submenuPlanejamentos.innerHTML = "";
 
-  categorias.categoriasPlanejamento.forEach(function (categoria) {
+  planejamentos.forEach(function (planejamento) {
     var li = document.createElement("li");
     li.classList.add("menu-item");
 
     var a = document.createElement("a");
     a.setAttribute("data-bs-toggle", "modal");
+    a.setAttribute("onclick", `exibirPlanejamento("${planejamento.id}")`);
 
     var icon = document.createElement("i");
-    icon.className = categoria.icone;
+    icon.className = planejamento.icone;
 
     a.appendChild(icon);
     a.appendChild(document.createTextNode(" "));
-    a.appendChild(document.createTextNode(categoria.nome));
+    a.appendChild(document.createTextNode(planejamento.nome));
     li.appendChild(a);
 
     submenuPlanejamentos.appendChild(li);
   });
 }
-
-

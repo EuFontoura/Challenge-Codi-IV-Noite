@@ -137,3 +137,41 @@ function atualizarGraficos(gastos, receitas) {
         },
     });
 }
+
+// gráfico planejamento
+
+function atualizarGraficoPlanejamento(planejamentos){
+    const planejamento = planejamentos.some((planejamento) => {
+        return planejamento.nome === 'Poupança'
+
+    });
+
+    const ctxP = document.getElementById("chartPlanejamento");
+    if (!ctxP) return;
+
+    const existingChartP = Chart.getChart(ctxP);
+    if (existingChartP) {
+        existingChartP.destroy();
+    }
+
+    function calcularPercentualProgresso() {
+        const totalPlanejamento = planejamento.meta.reduce((acc, categoria) => {
+            return (
+                acc +
+                categoria.gastos.reduce((accGasto, gasto) => accGasto + gasto.valor, 0)
+            );
+        }, totalPlanejamento);
+
+        const percentuais = categoriasGastosAtualizadas?.map((categoria) => {
+            const categoriaTotal = categoria.gastos.reduce(
+                (acc, gasto) => acc + gasto.valor,
+                0
+            );
+            return (categoriaTotal / totalGastos) * 100;
+        });
+        return percentuais;
+    }
+
+    const percentuaisGastos = calcularPercentualGastos();
+    const labelsG = categoriasGastosAtualizadas?.map((categoria) => categoria.nome);
+}

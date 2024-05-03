@@ -69,6 +69,7 @@ $(document).ready(function () {
 
     $("#modalAdicionarReceita").modal("hide");
     verificarLancamentosMes();
+    atualizarTabela();
     saldoMensal();
     atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
     isProcessingForm = false;

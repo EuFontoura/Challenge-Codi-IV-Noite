@@ -21,12 +21,16 @@
   <div class="app">
 
     <div class="navbar">
+      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
       <button class="toggleButton" type="button"><i class="fa-solid fa-bars"></i></button>
     </div>
 
     <!-- Siderbar -->
     <div class="sidebar">
-      <img src="assets/images/logo.png" class="logo" alt="logo" />
+      <div class="logomarca">
+      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
+    </div>
+
       <div class="menu-content">
         <ul class="menu-items">
           <li class="menu-item" style="border: 2px solid #198754; border-radius: 15px;">
@@ -36,7 +40,7 @@
             </a>
           </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item" onclick="home()">
               <span>Gastos</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
@@ -46,7 +50,7 @@
             </ul>
           </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item"  onclick="home()">
               <span>Receitas</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
@@ -61,6 +65,12 @@
             </div>
             <ul class="submenu">
               <div id="submenuPlanejamentos"></div>
+              <li class="menu-item">
+                <a data-bs-toggle="modal" data-bs-target="#modalPlanejamento" data-toggle="tooltip" data-placement="top"
+                  title="Adicionar Novo Planejamento">
+                  <i class="fa-solid fa-square-plus" id="add-icon"></i>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>
@@ -105,18 +115,13 @@
         <div class="resumo-mensal">
           <select id="filtro-categorias">
             <option value="">Todas as categorias</option>
-            <option value="Alimentação">Alimentação</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Moradia">Moradia</option>
-            <option value="Salário">Salário</option>
-            <option value="Vendas">Vendas</option>
-            <option value="Comprar Carro">Comprar Carro</option>
-            <option value="Poupança">Poupança</option>
+            
           </select>
           <div class="table-resume">
             <table class="table">
               <thead>
                 <tr>
+                  <th scope="col">Data</th>
                   <th scope="col">Nome</th>
                   <th scope="col">Valor</th>
                 </tr>
@@ -138,6 +143,49 @@
     </div>
 
 
+
+    <!-- Planejamento -->
+    <div class="main-planejamento ">
+      <div class="saldo-meta">
+        <div class="card">
+          <div class="card-head">
+            Meta:
+          </div>
+          <div class="card-body">
+            <span id="meta">100KK</span>
+          </div>
+        </div>
+      </div>
+      <div class="conteudo-plano">
+        <div class="grafico-plano">
+          <div class="grafico">
+            <h1 id="chartTitlePlanejamento">Nome do plano</h1>
+            <canvas id="chartPlanejamento"></canvas>
+          </div>
+        </div>
+        <div class="resumo-plano">
+          <div class="table-resume">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+                  <th scope="col">Valor</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="botoes">
+        <div class="button-seletor">
+          <button class="add-planejamento" data-toggle="tooltip" data-placement="top" title="Adicionar Planejamento"><i
+              class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
     <!-- Modal Categoria -->
     <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -155,7 +203,6 @@
                 <select id="tipoCategoria" class="form-select mb-3 background-input">
                   <option value="Gasto">Gasto</option>
                   <option value="Receita">Receita</option>
-                  <option value="Planejamento">Planejamento</option>
                 </select>
               </div>
               <div class="col-12">
@@ -219,6 +266,59 @@
                     <li class="dropdown-item" data-icon="fas fa-file-invoice-dollar">
                       <i class="fas fa-file-invoice-dollar"></i>
                     </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAddCategoria" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Modal Planejamento -->
+    <div class="modal fade" id="modalPlanejamento" tabindex="-1" aria-labelledby="modalPlanejamentoLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalPlanejamentoLabel">
+              Novo Planejamento
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="planejamentoForm" class="row g-3 needs-validation">
+              <div class="col-12">
+                <label for="metaPlanejamento" class="form-label">Meta (R$):</label>
+                <input type="text" class="form-control background-input" id="metaPlanejamento" placeholder="R$ 00,00"
+                  maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="nomePlanejamento" class="form-label">Nome:</label>
+                <input type="text" class="form-control background-input" id="nomePlanejamento" maxlength="12"
+                  required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="iconePlanejamento" class="form-label">Selecione o ícone:</label>
+                <div class="dropdown" id="iconePlanejamento">
+                  <button class="btn btn-secondary" type="button" data-icon="fas fa-handshake" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-handshake"></i>
+                  </button>
+                  <ul class="dropdown-menu">
                     <li class="dropdown-item" data-icon="fas fa-handshake">
                       <i class="fas fa-handshake"></i>
                     </li>
@@ -250,7 +350,7 @@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
                   Cancelar
                 </button>
-                <button id="btnAddCategoria" class="btn btn-success">
+                <button id="btnAddPlanejamento" class="btn btn-success">
                   Adicionar
                 </button>
               </div>
@@ -259,6 +359,69 @@
         </div>
       </div>
     </div>
+
+
+
+    <!-- Modal Adicionar Valor ao Planejamento -->
+    <div class="modal fade" id="modalAdicionarPlanejamento" tabindex="-1"
+      aria-labelledby="modalAdicionarPlanejamentoLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAdicionarPlanejamentoLabel">
+              Adicionar Lançamento
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="adicionarFormPlanejamento" class="row g-3 needs-validation">
+              <div class="col-12 form-group">
+                <label for="categoriaAdicionarPlanejamento">Categoria:</label>
+                <select class="form-control background-input" id="categoriaAdicionarPlanejamento" required>
+                  <option value="" disabled selected>Selecione uma categoria</option>
+                </select>
+                <div class="valid-feedback">Categoria selecionada!</div>
+              </div>
+              <!-- <div class="col-12">
+                <label for="nomeAdicionarPlanejamento" class="form-label">Nome do Planejamento:</label>
+                <input type="text" class="form-control background-input" id="nomeAdicionarPlanejamento" required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div> -->
+              <div class="col-12">
+                <label for="valorAdicionarPlanejamento" class="form-label">Valor (R$):</label>
+                <input type="text" class="form-control background-input" id="valorAdicionarPlanejamento"
+                  placeholder="R$ 00,00" maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="descricaoAdicionarPlanejamento" class="form-label">Descrição:</label>
+                <textarea type="text" class="form-control background-input" id="descricaoAdicionarPlanejamento"
+                  maxlength="60"></textarea>
+              </div>
+              <div class="col-12 form-group">
+                <label for="dataAdicionarPlanejamento">Data:</label>
+                <div class="select-calendar calendar-icon">
+                  <input type="text" class="background-input" id="dataAdicionarPlanejamento"
+                    name="dataAdicionarPlanejamento">
+                  <i class="fa fa-calendar "></i>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAdicionarPlanejamento" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
     <!-- Modal Adicionar Despesa -->
     <div class="modal fade" id="modalAdicionarDespesa" tabindex="-1" aria-labelledby="modalAdicionarDespesaLabel"
@@ -395,6 +558,7 @@
     <script src="assets/js/calendar.js"></script>
     <script src="assets/js/gastos.js"></script>
     <script src="assets/js/receitas.js"></script>
+    <script src="assets/js/planejamento.js"></script>
     <script src="assets/js/dropdownIcons.js"></script>
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/js/botoes.js"></script>
