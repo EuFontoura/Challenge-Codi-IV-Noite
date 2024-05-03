@@ -1,21 +1,4 @@
-var planejamentos = [
-  {
-    id: crypto.randomUUID(),
-    nome: "Comprar Carro",
-    icone: "fa-solid fa-car-side",
-    lancamentos: [],
-    meta: 0,
-    created_at: new Date(),
-  },
-  {
-    id: crypto.randomUUID(),
-    nome: "Poupança",
-    icone: "fas fa-piggy-bank",
-    lancamentos: [],
-    meta: 0,
-    created_at: new Date(),
-  },
-];
+var planejamentos = [];
 
 function gerarOpcoesSelectAddPlanejamentoModal() {
   var selectCategoria = document.getElementById(
@@ -178,7 +161,8 @@ function exibirPlanejamento(id) {
   const planejamento = planejamentos.find((p) => {
     return p.id === id;
   });
-  console.log("🚀 ~ planejamento ~ planejamento:", planejamento);
+  meta(id);
+  // console.log("🚀 ~ planejamento ~ planejamento:", planejamento);
 
   $(".main").css({ display: "none" });
   $(".main-planejamento").css({ display: "flex" });
