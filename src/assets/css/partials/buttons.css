@@ -11,7 +11,8 @@
 }
 
 .add-receita,
-.add-despesa {
+.add-despesa,
+.add-planejamento {
   border: none;
   cursor: pointer;
   font-size: 40px;
@@ -25,15 +26,20 @@
 }
 
 .add-receita:hover,
-.add-despesa:hover {
+.add-despesa:hover,
+.add-planejamento:hover {
   opacity: 0.5;
   transition: ease-in 0.3s;
 }
 
 .add-receita {
-  background-color: green;
+  background-color: var(--receita-color);
 }
 
 .add-despesa {
-  background-color: red;
+  background-color: var(--despesa-color);
+}
+
+.add-planejamento{
+  background-color: royalblue;
 }

@@ -3,6 +3,10 @@
 @import url(partials/sidebar.css);
 @import url(partials/main.css);
 @import url(partials/navbar.css);
+@import url(partials/saldo-mes.css);
+@import url(partials/saldo-planejamento.css);
+@import url(partials/resume-planejamento.css);
+@import url(partials/main-planejamento.css);
 
 * {
   margin: 0;
@@ -11,11 +15,17 @@
   font-family: "Poppins", sans-serif;
 }
 
+h1 {
+  text-align: center;
+}
+
 :root {
   --main-bg-color: #1d1d1d;
   --main-text-color: #ffffff;
   --second-bg-color: #2c2c2c;
   --hover-color: #198754;
+  --despesa-color: #a71d1d;
+  --receita-color: #198754;
 }
 
 .app {

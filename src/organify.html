@@ -21,40 +21,41 @@
   <div class="app">
 
     <div class="navbar">
+      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
       <button class="toggleButton" type="button"><i class="fa-solid fa-bars"></i></button>
     </div>
 
-    <!-- Inicio Siderbar -->
+    <!-- Siderbar -->
     <div class="sidebar">
-      <img src="assets/images/logo.png" class="logo" alt="logo" />
+      <div class="logomarca">
+        <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
+      </div>
+
       <div class="menu-content">
         <ul class="menu-items">
+          <li class="menu-item" style="border: 2px solid #198754; border-radius: 15px;">
+            <a data-bs-toggle="modal" data-bs-target="#modalCategoria" data-toggle="tooltip" data-placement="top"
+              title="Adicionar Nova Categoria">
+              <i class="fa-solid fa-square-plus" id="add-icon"></i>
+            </a>
+          </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item" onclick="home()">
               <span>Gastos</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
             <ul class="submenu">
-              <div id="submenuGastos"></div>
-              <li class="menu-item">
-                <a data-bs-toggle="modal" data-bs-target="#modalCategoriaGasto">
-                  <i class="fa-solid fa-square-plus" id="add-icon"></i>
-                </a>
-              </li>
+              <div id="submenuGastos">
+              </div>
             </ul>
           </li>
           <li class="menu-item">
-            <div class="item">
+            <div class="item" onclick="home()">
               <span>Receitas</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
             <ul class="submenu">
               <div id="submenuReceitas"></div>
-              <li class="menu-item">
-                <a data-bs-toggle="modal" data-bs-target="#modalCategoriaReceita">
-                  <i class="fa-solid fa-square-plus" id="add-icon"></i>
-                </a>
-              </li>
             </ul>
           </li>
           <li class="menu-item">
@@ -63,9 +64,10 @@
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
             <ul class="submenu">
-              <div id="submenuPlanejamento"></div>
+              <div id="submenuPlanejamentos"></div>
               <li class="menu-item">
-                <a data-bs-toggle="modal" data-bs-target="#modalCategoriaPlanejamento">
+                <a data-bs-toggle="modal" data-bs-target="#modalPlanejamento" data-toggle="tooltip" data-placement="top"
+                  title="Adicionar Novo Planejamento">
                   <i class="fa-solid fa-square-plus" id="add-icon"></i>
                 </a>
               </li>
@@ -74,45 +76,335 @@
         </ul>
       </div>
     </div>
-    <!-- Fim Siderbar -->
 
-
-
-
-    <!-- Inicio Main -->
+    <!-- Main -->
     <div class="main">
       <div class="selecionar-mes">
         <div class="mes-seletor">
-          <button class="anterior" onclick="mesAnterior()">&#8249;</button>
+          <button class="anterior" onclick="attDadosMesAnterior()">&#8249;</button>
           <div class="mes-atual"></div>
-          <button class="proximo" onclick="mesProximo()">&#8250;</button>
+          <button class="proximo" onclick="attDadosMesSeguinte()">&#8250;</button>
         </div>
+      </div>
+      <div class="saldo-mensal">
+        <div class="card">
+          <div class="card-head">
+            Saldo:
+          </div>
+          <div class="card-body">
+            <span id="saldo"></span>
+          </div>
+        </div>
+      </div>
+      <div class="msg-sem-lancamento">
+        <p>Não há lançamentos para esse mês.</p>
       </div>
       <div class="conteudo-mes">
         <div class="grafico-mensal">
           <div class="graficos">
-            <div>
-              <h1>Receitas</h1>
+            <div class="grafico">
+              <h1 id="chartTitleReceita">Receitas</h1>
               <canvas id="chartCategoriasReceita"></canvas>
             </div>
-            <div>
-              <h1>Gastos</h1>
+            <div class="grafico">
+              <h1 id="chartTitleGasto">Gastos</h1>
               <canvas id="chartCategoriasGasto"></canvas>
             </div>
           </div>
         </div>
         <div class="resumo-mensal">
+          <select id="filtro-categorias">
+            <option value="">Todas as categorias</option>
+          </select>
+          <div class="table-resume">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Valor</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela">
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
       <div class="botoes">
         <div class="button-seletor">
-          <button class="add-receita"><i class="fa-solid fa-plus"></i></button>
-          <button class="add-despesa"><i class="fa-solid fa-plus"></i></button>
+          <button class="add-receita" data-toggle="tooltip" data-placement="top" title="Adicionar Receita"><i
+              class="fa-solid fa-plus"></i></button>
+          <button class="add-despesa" data-toggle="tooltip" data-placement="top" title="Adicionar Gasto"><i
+              class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div>
-    <!-- Fim Main -->
 
+    <!-- Planejamento -->
+    <div class="main-planejamento">
+      <div class="title">
+        <span id="titlePlanejamento"></span>
+      </div>
+      <div class="conteudo-plano">
+        <div class="saldos">
+          <div class="saldo-meta">
+            <div class="card">
+              <div class="card-head">
+                Meta:
+              </div>
+              <div class="card-body">
+                <span id="meta"></span>
+              </div>
+            </div>
+          </div>
+          <div class="saldo-investido">
+            <div class="card">
+              <div class="card-head">
+                Acumulado:
+              </div>
+              <div class="card-body">
+                <span id="investido"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resumo-plano">
+          <div class="table-resume-planejamento">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+                  <th scope="col">Valor</th>
+                </tr>
+              </thead>
+              <tbody id="corpo-tabela-planejamento">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="buttons">
+        <div class="button-seletor">
+          <button class="add-planejamento" data-toggle="tooltip" data-placement="top" title="Adicionar Lançamento"><i
+              class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Categoria -->
+    <div class="modal fade" id="modalCategoria" tabindex="-1" aria-labelledby="modalCategoriaLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalCategoriaLabel">
+              Nova Categoria
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="categoriaForm" class="row g-3 needs-validation">
+              <div class="col-12">
+                <label for="tipoCategoria" class="form-label">Tipo:</label>
+                <select id="tipoCategoria" class="form-select mb-3 background-input">
+                  <option value="Gasto">Gasto</option>
+                  <option value="Receita">Receita</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="nomeCategoria" class="form-label">Nome:</label>
+                <input type="text" class="form-control background-input" id="nomeCategoria" maxlength="12" required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="iconeCategoria" class="form-label">Selecione o ícone:</label>
+                <div class="dropdown" id="iconeCategoria">
+                  <button class="btn btn-secondary" type="button" data-icon="fas fa-layer-group"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-layer-group"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item" data-icon="fas fa-layer-group">
+                      <i class="fas fa-layer-group"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-house">
+                      <i class="fas fa-house"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-paw">
+                      <i class="fas fa-paw"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-screwdriver-wrench">
+                      <i class="fas fa-screwdriver-wrench"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-file-invoice">
+                      <i class="fas fa-file-invoice"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-dumbbell">
+                      <i class="fas fa-dumbbell"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-umbrella-beach">
+                      <i class="fas fa-umbrella-beach"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-triangle-exclamation">
+                      <i class="fas fa-triangle-exclamation"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-bars-staggered">
+                      <i class="fas fa-bars-staggered"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-coins">
+                      <i class="fas fa-coins"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-money-bill-wave">
+                      <i class="fas fa-money-bill-wave"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon=" fas fa-wallet">
+                      <i class="fas fa-wallet"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-money-check-alt">
+                      <i class="fas fa-money-check-alt"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-dollar-sign">
+                      <i class="fas fa-dollar-sign"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-credit-card">
+                      <i class="fas fa-credit-card"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-file-invoice-dollar">
+                      <i class="fas fa-file-invoice-dollar"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAddCategoria" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Planejamento -->
+    <div class="modal fade" id="modalPlanejamento" tabindex="-1" aria-labelledby="modalPlanejamentoLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalPlanejamentoLabel">
+              Novo Planejamento
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="planejamentoForm" class="row g-3 needs-validation">
+              <div class="col-12">
+                <label for="metaPlanejamento" class="form-label">Meta (R$):</label>
+                <input type="text" class="form-control background-input" id="metaPlanejamento" placeholder="R$ 00,00"
+                  maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="nomePlanejamento" class="form-label">Nome:</label>
+                <input type="text" class="form-control background-input" id="nomePlanejamento" maxlength="12"
+                  required />
+                <div class="valid-feedback">Nome Válido!</div>
+              </div>
+              <div class="col-12">
+                <label for="iconePlanejamento" class="form-label">Selecione o ícone:</label>
+                <div class="dropdown" id="iconePlanejamento">
+                  <button class="btn btn-secondary" type="button" data-icon="fas fa-handshake" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="fas fa-handshake"></i>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item" data-icon="fas fa-handshake">
+                      <i class="fas fa-handshake"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-hand-holding-usd">
+                      <i class="fas fa-hand-holding-usd"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-piggy-bank">
+                      <i class="fas fa-piggy-bank"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-money-bill-wave">
+                      <i class="fas fa-money-bill-wave"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon=" fas fa-wallet">
+                      <i class="fas fa-wallet"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-dollar-sign">
+                      <i class="fas fa-dollar-sign"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-chart-line">
+                      <i class="fas fa-chart-line"></i>
+                    </li>
+                    <li class="dropdown-item" data-icon="fas fa-hand-holding-usd">
+                      <i class="fas fa-hand-holding-usd"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAddPlanejamento" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Modal Adicionar Valor ao Planejamento -->
+    <div class="modal fade" id="modalAdicionarLancamento" tabindex="-1" aria-labelledby="modalAdicionarLancamentoLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="bg-dark modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAdicionarLancamentoLabel">
+              Adicionar Lançamento
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="adicionarFormLancamento" class="row g-3 needs-validation">
+              <div class="col-12">
+                <label for="valorLancamento" class="form-label">Valor (R$):</label>
+                <input type="text" class="form-control background-input" id="valorLancamento" placeholder="R$ 00,00"
+                  maxlength="12" required />
+                <div class="valid-feedback">Valor Válido!</div>
+              </div>
+              <div class="col-12 form-group">
+                <label for="dataLancamento">Data:</label>
+                <div class="select-calendar calendar-icon">
+                  <input type="text" class="background-input" id="dataLancamento" name="dataLancamento">
+                  <i class="fa fa-calendar "></i>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                  Cancelar
+                </button>
+                <button id="btnAdicionarLancamento" class="btn btn-success">
+                  Adicionar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
 
@@ -173,9 +465,6 @@
         </div>
       </div>
     </div>
-    <!-- Fim Modal Adicionar Despesa -->
-
-
 
 
     <!-- Modal Adicionar Receita -->
@@ -236,240 +525,29 @@
         </div>
       </div>
     </div>
-    <!-- Fim Modal Adicionar Receita -->
 
-
-
-
-    <!-- Modal Categoria Gasto -->
-    <div class="modal fade" id="modalCategoriaGasto" tabindex="-1" aria-labelledby="modalCategoriaGastoLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="bg-dark modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalCategoriaGastoLabel">
-              Nova Categoria
-            </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="categoriaFormGasto" class="row g-3 needs-validation">
-              <div class="col-12">
-                <label for="nomeCategoriaGasto" class="form-label">Nome:</label>
-                <input type="text" class="form-control background-input" id="nomeCategoriaGasto" maxlength="12"
-                  required />
-                <div class="valid-feedback">Nome Válido!</div>
-              </div>
-              <div class="col-12">
-                <label for="iconeCategoriaGasto" class="form-label">Selecione o ícone:</label>
-                <div class="dropdown" id="iconeCategoriaGasto">
-                  <button class="btn btn-secondary" type="button" data-icon="fas fa-layer-group"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-layer-group"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown-item" data-icon="fas fa-layer-group">
-                      <i class="fas fa-layer-group"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-house">
-                      <i class="fas fa-house"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-paw">
-                      <i class="fas fa-paw"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-screwdriver-wrench">
-                      <i class="fas fa-screwdriver-wrench"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-file-invoice">
-                      <i class="fas fa-file-invoice"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-dumbbell">
-                      <i class="fas fa-dumbbell"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-umbrella-beach">
-                      <i class="fas fa-umbrella-beach"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-triangle-exclamation">
-                      <i class="fas fa-triangle-exclamation"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-bars-staggered">
-                      <i class="fas fa-bars-staggered"></i>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-12">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                  Cancelar
-                </button>
-                <button id="btnAdicionarCategoriaGasto" class="btn btn-success">
-                  Adicionar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Fim Modal Categoria Gasto -->
-
-
-
-
-    <!-- Modal Categoria Receita -->
-    <div class="modal fade" id="modalCategoriaReceita" tabindex="-1" aria-labelledby="modalCategoriaReceitaLabel"
-      aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="bg-dark modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalCategoriaReceitaLabel">
-              Nova Categoria
-            </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="categoriaFormReceita" class="row g-3 needs-validation">
-              <div class="col-12">
-                <label for="nomeCategoriaReceita" class="form-label">Nome:</label>
-                <input type="text" class="form-control background-input" id="nomeCategoriaReceita" maxlength="12"
-                  required />
-                <div class="valid-feedback">Nome Válido!</div>
-              </div>
-              <div class="col-12">
-                <label for="iconeCategoriaReceita" class="form-label">Selecione o ícone:</label>
-                <div class="dropdown" id="iconeCategoriaReceita">
-                  <button class="btn btn-secondary" type="button" data-icon="fas fa-dollar-sign"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-dollar-sign"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown-item" data-icon="fas fa-coins">
-                      <i class="fas fa-coins"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-money-bill-wave">
-                      <i class="fas fa-money-bill-wave"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon=" fas fa-wallet">
-                      <i class="fas fa-wallet"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-money-check-alt">
-                      <i class="fas fa-money-check-alt"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-dollar-sign">
-                      <i class="fas fa-dollar-sign"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-credit-card">
-                      <i class="fas fa-credit-card"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-file-invoice-dollar">
-                      <i class="fas fa-file-invoice-dollar"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-handshake">
-                      <i class="fas fa-handshake"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-hand-holding-usd">
-                      <i class="fas fa-hand-holding-usd"></i>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-12">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                  Cancelar
-                </button>
-                <button id="btnAdicionarCategoriaReceita" class="btn btn-success">
-                  Adicionar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- Fim Modal Categoria Receita -->
-
-
-
-
-    <!-- Modal Categoria Planejamento -->
-    <div class="modal fade" id="modalCategoriaPlanejamento" tabindex="-1"
-      aria-labelledby="modalCategoriaPlanejamentoLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="bg-dark modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalCategoriaPlanejamentoLabel">
-              Novo Planejamento
-            </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form id="categoriaFormPlanejamento" class="row g-3 needs-validation">
-              <div class="col-12">
-                <label for="nomeCategoriaPlanejamento" class="form-label">Nome:</label>
-                <input type="text" class="form-control background-input" id="nomeCategoriaPlanejamento" maxlength="12"
-                  required />
-                <div class="valid-feedback">Nome Válido!</div>
-              </div>
-              <div class="col-12">
-                <label for="iconeCategoriaPlanejamento" class="form-label">Selecione o ícone:</label>
-                <div class="dropdown" id="iconeCategoriaPlanejamento">
-                  <button class="btn btn-secondary" type="button" data-icon="fas fa-piggy-bank"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fas fa-piggy-bank"></i>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li class="dropdown-item" data-icon="fas fa-piggy-bank">
-                      <i class="fas fa-piggy-bank"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-money-bill-wave">
-                      <i class="fas fa-money-bill-wave"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon=" fas fa-wallet">
-                      <i class="fas fa-wallet"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-dollar-sign">
-                      <i class="fas fa-dollar-sign"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-chart-line">
-                      <i class="fas fa-chart-line"></i>
-                    </li>
-                    <li class="dropdown-item" data-icon="fas fa-hand-holding-usd">
-                      <i class="fas fa-hand-holding-usd"></i>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-12">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                  Cancelar
-                </button>
-                <button id="btnAdicionarCategoriaPlanejamento" class="btn btn-success">
-                  Adicionar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-      <!-- Fim Modal Categoria Planejamento -->
-
-
-
-
-      <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-      <script src="assets/js/navbar.js"></script>
-      <script src="assets/js/gastos.js"></script>
-      <script src="assets/js/receitas.js"></script>
-      <script src="assets/js/planejamento.js"></script>
-      <script src="assets/js/sidebar.js"></script>
-      <script src="assets/js/calendar.js"></script>
-      <script src="assets/js/botoes.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="assets/js/tooltips.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="assets/js/meses.js"></script>
+    <script src="assets/js/categorias.js"></script>
+    <script src="assets/js/saldo.js"></script>
+    <script src="assets/js/navbar.js"></script>
+    <script src="assets/js/graficos.js"></script>
+    <script src="assets/js/calendar.js"></script>
+    <script src="assets/js/gastos.js"></script>
+    <script src="assets/js/receitas.js"></script>
+    <script src="assets/js/planejamentos.js"></script>
+    <script src="assets/js/lancamentos.js"></script>
+    <script src="assets/js/dropdownIcons.js"></script>
+    <script src="assets/js/sidebar.js"></script>
+    <script src="assets/js/botoes.js"></script>
 </body>
 
 </html>

@@ -1,17 +1,53 @@
 .grafico-mensal {
-    width: 100%;
-    height: 400px;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
     position: relative;
     overflow: hidden;
 }
 
 .graficos {
-    width: 100%;
     height: 100%;
-    position: absolute;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 2rem;
+    align-items: center;
+    justify-content: space-around;
     overflow-y: auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: var(--second-bg-color);
+}
+
+.grafico {
+    width: 40vh;
+}
+
+#chartTitleGasto {
+    text-shadow: 1px 1px 3px var(--despesa-color);
+    color: var(--despesa-color);
+}
+
+#chartTitleReceita {
+    text-shadow: 1px 1px 3px var(--receita-color);
+    color: var(--receita-color);
+}
+
+#chartTitleGasto,
+#chartTitleReceita {
+    letter-spacing: .2rem;
+}
+
+@media (max-width: 768px) {
+    .grafico-mensal {
+        padding: 10px;
+    }
+
+    .grafico {
+        width: 100%;
+        padding: 0;
+    }
 }
