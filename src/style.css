@@ -1,0 +1,224 @@
+body {
+  width: 100%;
+  min-height: 100vh;
+  color: black;
+  background: linear-gradient(rgba(90, 92, 90, 0.938), rgb(0, 0, 0)) !important;
+  margin: 0;
+  padding-bottom: 64px;
+  font-family: "poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+.Container::before {
+  content: "";
+  background: url(imagens/camaleao.png) no-repeat center/contain;
+  position: absolute;
+  height: 100vh !important;
+  width: 100%;
+  opacity: 0.2;
+  z-index: -1;
+}
+
+#desktop-nav {
+  display: none;
+}
+
+#mobile-nav nav #lg-bt {
+  display: flex;
+  justify-content: space-around;
+  height: 100px;
+  width: 100%;
+  align-items: center;
+}
+
+#mobile-links {
+  background-color: rgb(12, 11, 11);
+  opacity: 0.7;
+  width: 100%;
+  border-radius: 25px;
+}
+.close-mobile-links {
+  display: none;
+}
+
+.Container nav .left img {
+  height: 70px;
+}
+
+.Container .title {
+  padding: 70px 45px;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: "poppins", sans-serif;
+  transition: transform 0.3s;
+}
+
+li a:hover {
+  opacity: 0.6;
+  transform: scale(1.1);
+}
+
+.Container-Card {
+  display: grid;
+  justify-content: center;
+  max-width: 1120px;
+  width: 100%;
+  padding: 0px 1.5rem;
+  margin: 0 auto;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.Container-Card .card-body {
+  transition: 0.5s;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+  height: 0 auto;
+}
+
+.card-header :hover {
+  transform: translateY(-5px);
+  cursor: pointer;
+}
+
+h4 {
+  color: #198754 !important;
+  font-size: 22px !important;
+  text-align: center;
+}
+
+.Container-Card .sombra:hover {
+  box-shadow: 0 0 10px 5px #198754;
+  transition: 0.5s;
+}
+
+@media (min-width: 1024px) {
+  #mobile-nav {
+    display: none;
+  }
+  #desktop-nav {
+    display: block;
+  }
+
+  .Container .title {
+    margin-top: 10%;
+  }
+  .Container-Card {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+.card-header img {
+  height: 25px;
+  margin-right: 10px;
+}
+
+h4 {
+  display: inline;
+}
+
+.center {
+  text-align: center;
+}
+
+.botao a {
+  font-size: 24px;
+  background: #198754;
+  margin-top: 50px;
+  transition: transform 0.3s;
+  transition: 0.5s;
+  padding: 20px;
+  border: none;
+  border-radius: 15px;
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+
+.botao a:hover {
+  transform: scale(1.1);
+  background-color: rgb(37, 70, 40);
+  box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00,
+    0 0 40px #00ff00;
+}
+
+.botao {
+  margin-top: 40px;
+}
+/* .botao a {
+  
+  padding: 20px;
+} */
+
+/* css do sobre nós */
+.conteudo-sn {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.conteudo-sn h1 {
+  font-size: 32px;
+  text-align: center;
+  color: white;
+}
+.conteudo-sn p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.711);
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: justify;
+}
+
+.title-ct {
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.title-ct h1,
+.title-ct h2,
+.title-ct h3 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  color: #dfdfdf;
+}
+
+.title-ct h1 i {
+  font-size: 30px;
+  margin-top: 8px;
+}
+
+footer {
+  color: white;
+  text-align: center;
+  margin-top: 50px;
+}
