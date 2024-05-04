@@ -14,11 +14,13 @@
 .hidden {
   display: none;
 }
+
 .logomarca {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .logo {
   width: 220px;
   margin: 0 auto;
@@ -105,7 +107,7 @@
   transform: rotate(90deg);
 }
 
-.show-submenu ~ .submenu {
+.show-submenu~.submenu {
   display: block;
 }
 
@@ -118,4 +120,10 @@ ul {
 #add-icon {
   font-size: 18px;
   margin: auto;
+}
+
+@media (max-width: 768px) {
+  .logomarca {
+    display: none;
+  }
 }

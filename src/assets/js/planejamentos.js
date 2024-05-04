@@ -98,11 +98,47 @@ $(document).ready(function () {
       $(this).removeClass("is-invalid").addClass("is-valid");
     }
   });
+
+  $("#metaPlanejamento").on("blur", function () {
+
+    var metaPlanejamento = $(this).val().trim();
+
+    metaPlanejamento = metaPlanejamento.replace(/[^0-9,]/g, "");
+
+    if (!metaPlanejamento.includes(",")) {
+      if (metaPlanejamento === "") {
+        metaPlanejamento = "0";
+      }
+      metaPlanejamento += "00";
+      metaPlanejamento =
+        metaPlanejamento.slice(0, -2) + "," + metaPlanejamento.slice(-2);
+    } else {
+      var partes = metaPlanejamento.split(",");
+      var parteInteira = partes[0];
+      var decimais = partes[1];
+
+      if (decimais.length !== 2) {
+        decimais = decimais.padEnd(2, "0").slice(0, 2);
+      }
+
+      metaPlanejamento = parteInteira + "," + decimais;
+    }
+
+    $(this).val(metaPlanejamento);
+
+    if (
+      metaPlanejamento === "0,00" ||
+      !/^\d{1,3}(?:\.\d{3})*|\d+,\d{2}$/.test(metaPlanejamento)
+    ) {
+      $(this).removeClass("is-valid").addClass("is-invalid");
+    } else {
+      $(this).removeClass("is-invalid").addClass("is-valid");
+    }
+  });
 });
 
 $(document).ready(function () {
   preencherSubMenuPlanejamentos();
-
 });
 
 
@@ -110,16 +146,14 @@ const atualizarTabelaPlanejamento = (planejamento) => {
   const corpoTabela = document.getElementById("corpo-tabela-planejamento");
   corpoTabela.innerHTML = "";
 
-  planejamento.lancamentos.forEach((lancamento) =>{
+  planejamento.lancamentos.forEach((lancamento) => {
     const novaLinha = document.createElement("tr");
-  novaLinha.innerHTML = `
-            <td class="td-gasto">${lancamento.data}</td>
-            <td class="td-gasto">R$ ${lancamento.valor}</td>
+    novaLinha.innerHTML = `
+            <td class="td-planejamento">${lancamento.data}</td>
+            <td class="td-planejamento">R$ ${lancamento.valor}</td>
           `;
-  corpoTabela.appendChild(novaLinha);
+    corpoTabela.appendChild(novaLinha);
   })
-
-  
 };
 
 //Muda tela Principal
@@ -128,35 +162,37 @@ function exibirPlanejamento(id) {
     return p.id === id;
   });
 
+
+
   $(".main").css({ display: "none" });
   $(".main-planejamento").css({ display: "flex" });
 
-  const titulo = document.getElementById('chartTitlePlanejamento');
+  const titulo = document.getElementById("titlePlanejamento");
   titulo.innerHTML = planejamento.nome;
 
   const meta = document.getElementById('meta');
   meta.innerHTML = planejamento.meta;
 
+  acumularInvestimento(planejamento)
+
   atualizarTabelaPlanejamento(planejamento);
-
-  console.log(typeof(planejamento.meta))
-
-  atualizarMeta();
 }
 
-function atualizarMeta(){
-  const planejamento = planejamentos.find((p) => {
-    return p.nome === document.getElementById("chartTitlePlanejamento").textContent;
+function acumularInvestimento(planejamento) {
+  let totalAcumulado = 0;
+
+  planejamento.lancamentos.forEach((l) => {
+    totalAcumulado = totalAcumulado + l.valor;
   });
 
-  const valorTotalInvestido = planejamento.lancamentos.reduce((total, lancamento) => {
-    return total + lancamento.valor;
-  }, 0);
+  const acc = document.getElementById('investido');
+  acc.innerHTML = totalAcumulado;
+}
 
-  planejamento.meta.parseFloat = planejamento.meta.parseFloat - valorTotalInvestido.parseFloat;
 
-  console.log(planejamento.meta);
-};
+
+
+
 
 
 

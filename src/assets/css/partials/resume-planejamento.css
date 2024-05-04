@@ -10,13 +10,11 @@
   align-items: center;
 }
 
-
-
-.table-resume::-webkit-scrollbar {
+.table-resume-planejamento::-webkit-scrollbar {
   display: none;
 }
 
-.table-resume {
+.table-resume-planejamento {
   position: absolute;
   top: 0px;
   width: 100%;
@@ -40,4 +38,3 @@
   transition: ease-in 0.3s;
   cursor: pointer;
 }
-

@@ -95,7 +95,6 @@ function preencherSubMenuPlanejamentos() {
     li.classList.add("menu-item");
 
     var a = document.createElement("a");
-    a.setAttribute("data-bs-toggle", "modal");
     a.setAttribute("onclick", `exibirPlanejamento("${planejamento.id}")`);
 
     var icon = document.createElement("i");

@@ -28,8 +28,8 @@
     <!-- Siderbar -->
     <div class="sidebar">
       <div class="logomarca">
-      <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
-    </div>
+        <a onclick="home()"><img src="assets/images/logo.png" class="logo" alt="logo" /></a>
+      </div>
 
       <div class="menu-content">
         <ul class="menu-items">
@@ -50,7 +50,7 @@
             </ul>
           </li>
           <li class="menu-item">
-            <div class="item"  onclick="home()">
+            <div class="item" onclick="home()">
               <span>Receitas</span>
               <i class="fa-solid fa-chevron-right arrow"></i>
             </div>
@@ -115,7 +115,6 @@
         <div class="resumo-mensal">
           <select id="filtro-categorias">
             <option value="">Todas as categorias</option>
-            
           </select>
           <div class="table-resume">
             <table class="table">
@@ -142,29 +141,36 @@
       </div>
     </div>
 
-
-
     <!-- Planejamento -->
-    <div class="main-planejamento ">
-      <div class="saldo-meta">
-        <div class="card">
-          <div class="card-head">
-            Meta:
-          </div>
-          <div class="card-body">
-            <span id="meta"></span>
-          </div>
-        </div>
+    <div class="main-planejamento">
+      <div class="title">
+        <span id="titlePlanejamento"></span>
       </div>
       <div class="conteudo-plano">
-        <div class="grafico-plano">
-          <div class="grafico">
-            <h1 id="chartTitlePlanejamento"></h1>
-            <canvas id="chartPlanejamento"></canvas>
+        <div class="saldos">
+          <div class="saldo-meta">
+            <div class="card">
+              <div class="card-head">
+                Meta:
+              </div>
+              <div class="card-body">
+                <span id="meta"></span>
+              </div>
+            </div>
+          </div>
+          <div class="saldo-investido">
+            <div class="card">
+              <div class="card-head">
+                Acumulado:
+              </div>
+              <div class="card-body">
+                <span id="investido"></span>
+              </div>
+            </div>
           </div>
         </div>
         <div class="resumo-plano">
-          <div class="table-resume">
+          <div class="table-resume-planejamento">
             <table class="table">
               <thead>
                 <tr>
@@ -178,7 +184,7 @@
           </div>
         </div>
       </div>
-      <div class="botoes">
+      <div class="buttons">
         <div class="button-seletor">
           <button class="add-planejamento" data-toggle="tooltip" data-placement="top" title="Adicionar Lançamento"><i
               class="fa-solid fa-plus"></i></button>
@@ -283,9 +289,6 @@
       </div>
     </div>
 
-
-
-
     <!-- Modal Planejamento -->
     <div class="modal fade" id="modalPlanejamento" tabindex="-1" aria-labelledby="modalPlanejamentoLabel"
       aria-hidden="true">
@@ -363,8 +366,8 @@
 
 
     <!-- Modal Adicionar Valor ao Planejamento -->
-    <div class="modal fade" id="modalAdicionarLancamento" tabindex="-1"
-      aria-labelledby="modalAdicionarLancamentoLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAdicionarLancamento" tabindex="-1" aria-labelledby="modalAdicionarLancamentoLabel"
+      aria-hidden="true">
       <div class="modal-dialog">
         <div class="bg-dark modal-content">
           <div class="modal-header">
@@ -377,15 +380,14 @@
             <form id="adicionarFormLancamento" class="row g-3 needs-validation">
               <div class="col-12">
                 <label for="valorLancamento" class="form-label">Valor (R$):</label>
-                <input type="text" class="form-control background-input" id="valorLancamento"
-                  placeholder="R$ 00,00" maxlength="12" required />
+                <input type="text" class="form-control background-input" id="valorLancamento" placeholder="R$ 00,00"
+                  maxlength="12" required />
                 <div class="valid-feedback">Valor Válido!</div>
               </div>
               <div class="col-12 form-group">
                 <label for="dataLancamento">Data:</label>
                 <div class="select-calendar calendar-icon">
-                  <input type="text" class="background-input" id="dataLancamento"
-                    name="dataLancamento">
+                  <input type="text" class="background-input" id="dataLancamento" name="dataLancamento">
                   <i class="fa fa-calendar "></i>
                 </div>
               </div>
@@ -541,8 +543,8 @@
     <script src="assets/js/calendar.js"></script>
     <script src="assets/js/gastos.js"></script>
     <script src="assets/js/receitas.js"></script>
+    <script src="assets/js/planejamentos.js"></script>
     <script src="assets/js/lancamentos.js"></script>
-    <script src="assets/js/planejamento.js"></script>
     <script src="assets/js/dropdownIcons.js"></script>
     <script src="assets/js/sidebar.js"></script>
     <script src="assets/js/botoes.js"></script>

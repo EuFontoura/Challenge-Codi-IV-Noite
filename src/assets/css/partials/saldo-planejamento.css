@@ -1,6 +1,4 @@
 .saldo-meta {
-    margin-top: 50px;
-    margin-bottom: 15px;
     height: 80px;
     width: 50%;
     display: flex;
@@ -11,7 +9,6 @@
 .card {
     border-radius: 15px;
     width: 260px;
-    padding: 10px;
     background-color: var(--second-bg-color);
 }
 
@@ -33,6 +30,5 @@
 @media (max-width: 768px) {
     .saldo-meta {
         width: 100%;
-        padding: 10px;
     }
 }

@@ -6,6 +6,7 @@
 @import url(partials/saldo-mes.css);
 @import url(partials/saldo-planejamento.css);
 @import url(partials/resume-planejamento.css);
+@import url(partials/main-planejamento.css);
 
 * {
   margin: 0;

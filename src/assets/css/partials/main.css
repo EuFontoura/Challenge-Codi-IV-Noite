@@ -40,17 +40,3 @@
   height: 700px;
   gap: 0.5rem;
 }
-
-.main-planejamento {
-  flex: 6;
-  display: none;
-  flex-direction: column;
-  height: 100vh;
-  background: var(--main-bg-color);
-  justify-content: space-between;
-  gap: 1rem;
-  overflow: scroll;
-}
-.main-planejamento::-webkit-scrollbar {
-  display: none;
-}
