@@ -121,20 +121,20 @@ $(document).ready(function () {
   atualizarGraficos(categorias.categoriasGasto, categorias.categoriasReceita);
 });
 
-// function salvarCategorias() {
-//   localStorage.setItem("categorias", JSON.stringify(categorias));
-// }
+function salvarCategorias() {
+  localStorage.setItem("categorias", JSON.stringify(categorias));
+}
 
-// function recuperarCategorias() {
-//   var categoriasSalvas = localStorage.getItem("categorias");
-//   if (categoriasSalvas) {
-//     categorias = JSON.parse(categoriasSalvas);
-//   }
-// }
+function recuperarCategorias() {
+  var categoriasSalvas = localStorage.getItem("categorias");
+  if (categoriasSalvas) {
+    categorias = JSON.parse(categoriasSalvas);
+  }
+}
 
-// document.addEventListener("DOMContentLoaded", recuperarCategorias);
+document.addEventListener("DOMContentLoaded", recuperarCategorias);
 
-// window.addEventListener("beforeunload", salvarCategorias);
+window.addEventListener("beforeunload", salvarCategorias);
 
 
 // Adicionar Categoria Gastos e Receitas

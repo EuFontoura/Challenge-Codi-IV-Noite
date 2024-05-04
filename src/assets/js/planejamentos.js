@@ -1,19 +1,19 @@
 var planejamentos = [];
 
-// function salvarPlanejamentos() {
-//   localStorage.setItem("planejamentos", JSON.stringify(planejamentos));
-// }
+function salvarPlanejamentos() {
+  localStorage.setItem("planejamentos", JSON.stringify(planejamentos));
+}
 
-// function recuperarPlanejamentos() {
-//   var planejamentosSalvos = localStorage.getItem("planejamentos");
-//   if (planejamentosSalvos) {
-//     planejamentos = JSON.parse(planejamentosSalvos);
-//   }
-// }
+function recuperarPlanejamentos() {
+  var planejamentosSalvos = localStorage.getItem("planejamentos");
+  if (planejamentosSalvos) {
+    planejamentos = JSON.parse(planejamentosSalvos);
+  }
+}
 
-// document.addEventListener("DOMContentLoaded", recuperarPlanejamentos);
+document.addEventListener("DOMContentLoaded", recuperarPlanejamentos);
 
-// window.addEventListener("beforeunload", salvarPlanejamentos);
+window.addEventListener("beforeunload", salvarPlanejamentos);
 
 // Adicionar Planejamento
 $(document).ready(function () {
